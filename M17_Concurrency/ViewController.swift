@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
     
@@ -13,21 +14,29 @@ class ViewController: UIViewController {
     
     private lazy var imageView: UIImageView = {
         let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-        view.contentMode = .scaleAspectFit
+        //view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
+    private var images = [UIImage]()
+    
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.distribution = .fillEqually
+        view.spacing = 10
         return view
     }()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(frame: CGRect(x: 220, y: 220, width: 140, height: 140))
+        //let view = UIActivityIndicatorView(frame: CGRect(x: 220, y: 220, width: 140, height: 140))
+        let view = UIActivityIndicatorView(style: .large)
         return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(imageView)
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
+        setupViews()
         onLoad()
     }
 
@@ -44,6 +53,18 @@ class ViewController: UIViewController {
             
             self.activityIndicator.stopAnimating()
         }
+    }
+    
+    private func setupViews() {
+        view.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
+//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
+//            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
+//            make.left.right.equalToSuperview()
+        }
+        stackView.addArrangedSubview(activityIndicator)
+        activityIndicator.startAnimating()
     }
 }
 
