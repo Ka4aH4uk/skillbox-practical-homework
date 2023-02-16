@@ -41,17 +41,44 @@ class ViewController: UIViewController {
     }
 
     private func onLoad() {
-        service.getImageURL { urlString, error in
-            guard
-                let urlString = urlString
-            else {
-                return
-            }
-            
-            let image = self.service.loadImage(urlString: urlString)
-            self.imageView.image = image
-            
-            self.activityIndicator.stopAnimating()
+        print("---Central Dispatch Group---")
+        let dispatchGroup = DispatchGroup()
+        
+        //формируем группу асинхронных операций
+        for i in 0...4 {
+            dispatchGroup.enter()
+            print("Enter \(i), priority = \(qos_class_self().rawValue)")
+            DispatchQueue.main.async(
+                group: dispatchGroup,
+                qos: .userInteractive,
+                flags: [],
+                execute: {
+                    self.service.getImageURL { urlString, error in
+                        guard
+                            let urlString = urlString
+                        else {
+                            return
+                        }
+                        let image = self.service.loadImage(urlString: urlString)
+                        self.images.append(image ?? UIImage())
+                        dispatchGroup.leave()
+                        print("Выход \(i), приоритет = \(qos_class_self().rawValue)")
+                }
+          //блок обратного вызова на всю группу
+                    dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+                        guard
+                            let self = self
+                        else {
+                            return
+                        }
+                        self.activityIndicator.stopAnimating()
+                        self.stackView.removeArrangedSubview(self.activityIndicator)
+                        let view = UIImageView(image: UIImage())
+                        view.contentMode = .scaleAspectFit
+                        self.stackView.addArrangedSubview(view)
+                        view.image = self.images[i]
+                    }
+                })
         }
     }
     
