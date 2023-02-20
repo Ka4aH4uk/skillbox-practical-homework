@@ -14,6 +14,7 @@
 		02F3F21029A2E124003B758F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02F3F20F29A2E124003B758F /* Assets.xcassets */; };
 		02F3F21329A2E124003B758F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02F3F21129A2E124003B758F /* LaunchScreen.storyboard */; };
 		02F3F21C29A2E14B003B758F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 02F3F21B29A2E14B003B758F /* SnapKit */; };
+		02F3F21E29A3A2DC003B758F /* MyCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F3F21D29A3A2DC003B758F /* MyCustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		02F3F20F29A2E124003B758F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02F3F21229A2E124003B758F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02F3F21429A2E124003B758F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02F3F21D29A3A2DC003B758F /* MyCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				02F3F20629A2E122003B758F /* AppDelegate.swift */,
 				02F3F20829A2E122003B758F /* SceneDelegate.swift */,
 				02F3F20A29A2E122003B758F /* ViewController.swift */,
+				02F3F21D29A3A2DC003B758F /* MyCustomCell.swift */,
 				02F3F20C29A2E122003B758F /* Main.storyboard */,
 				02F3F20F29A2E124003B758F /* Assets.xcassets */,
 				02F3F21129A2E124003B758F /* LaunchScreen.storyboard */,
@@ -148,6 +151,7 @@
 			files = (
 				02F3F20B29A2E122003B758F /* ViewController.swift in Sources */,
 				02F3F20729A2E122003B758F /* AppDelegate.swift in Sources */,
+				02F3F21E29A3A2DC003B758F /* MyCustomCell.swift in Sources */,
 				02F3F20929A2E122003B758F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
