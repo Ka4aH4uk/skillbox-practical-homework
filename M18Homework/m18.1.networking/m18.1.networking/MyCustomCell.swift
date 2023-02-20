@@ -11,7 +11,7 @@ import SnapKit
 class MyCustomCell: UITableViewCell {
     
     let picture = UIImageView()
-    let headerLabel = UILabel()
+    let titleLabel = UILabel()
     let descriptionLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -25,7 +25,7 @@ class MyCustomCell: UITableViewCell {
     
     func configure(_ viewModel: Films) {
         //picture.image = viewModel.
-        headerLabel.text = viewModel.title
+        titleLabel.text = viewModel.title
         descriptionLabel.text = viewModel.description
     }
     
@@ -40,10 +40,10 @@ class MyCustomCell: UITableViewCell {
             make.top.equalToSuperview().inset(16)
         }
         
-        contentView.addSubview(headerLabel)
-        headerLabel.textColor = .black
-        headerLabel.font = .systemFont(ofSize: 22)
-        headerLabel.snp.makeConstraints { make in
+        contentView.addSubview(titleLabel)
+        titleLabel.textColor = .black
+        titleLabel.font = .systemFont(ofSize: 22)
+        titleLabel.snp.makeConstraints { make in
             make.height.equalTo(19)
             make.left.equalToSuperview().inset(82)
             make.top.equalToSuperview().inset(16)
