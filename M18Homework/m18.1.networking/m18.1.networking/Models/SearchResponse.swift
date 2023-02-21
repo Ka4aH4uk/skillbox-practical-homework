@@ -3,22 +3,44 @@
 //  m18.1.networking
 //
 //  Created by Ka4aH on 20.02.2023.
-//
+//  https://app.quicktype.io/
 
 import Foundation
 
 // MARK: - SearchResponse
 struct SearchResponse: Decodable {
-    var searchType, expression: String
-    var results: [Films]
-    var errorMessage: String
+    let resultCount: Int?
+    let results: [Tracks]?
 }
 
 // MARK: - Result
-struct Films: Decodable {
-    var id: String
-    var resultType: String
-    var image: String?
-    var title: String
-    var description: String
+struct Tracks: Decodable {
+    let artistName: String
+    let collectionName, trackName, collectionCensoredName, trackCensoredName: String?
+    let artistViewURL, collectionViewURL, trackViewURL: String?
+    let artworkUrl30: String?
+    let artworkUrl60, artworkUrl100: String
+    let primaryGenreName: String
+    let copyright, description: String?
+    let collectionArtistName: String?
+    let collectionArtistViewURL: String?
+    let contentAdvisoryRating: String?
+    let shortDescription, longDescription: String?
 }
+
+//IMDB
+//// MARK: - SearchResponse
+//struct SearchResponse: Decodable {
+//    var searchType, expression: String
+//    var results: [Films]
+//    var errorMessage: String
+//}
+//
+//// MARK: - Result
+//struct Films: Decodable {
+//    var id: String
+//    var resultType: String
+//    var image: String?
+//    var title: String
+//    var description: String
+//}

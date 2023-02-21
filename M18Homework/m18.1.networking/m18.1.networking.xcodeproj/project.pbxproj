@@ -69,9 +69,9 @@
 				02F3F20629A2E122003B758F /* AppDelegate.swift */,
 				02F3F20829A2E122003B758F /* SceneDelegate.swift */,
 				02F3F20A29A2E122003B758F /* ViewController.swift */,
-				02F3F21D29A3A2DC003B758F /* MyCustomCell.swift */,
 				02F3F22429A3A4D8003B758F /* Services */,
 				02F3F22129A3A462003B758F /* Models */,
+				02F3F22A29A3BFAD003B758F /* Cell */,
 				02F3F20C29A2E122003B758F /* Main.storyboard */,
 				02F3F20F29A2E124003B758F /* Assets.xcassets */,
 				02F3F21129A2E124003B758F /* LaunchScreen.storyboard */,
@@ -95,6 +95,14 @@
 				02F3F22729A3A689003B758F /* NetworkDataFetcher.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		02F3F22A29A3BFAD003B758F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				02F3F21D29A3A2DC003B758F /* MyCustomCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
