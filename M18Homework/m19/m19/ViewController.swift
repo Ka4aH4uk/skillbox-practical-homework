@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBAction func birthEditing(_ sender: UITextField) {
         birthTF = Int(sender.text ?? "") ?? 0
     }
+    @IBOutlet weak var birthTextField: UITextField!
     
     var occuppationTF: String = ""
     @IBAction func occupationEditing(_ sender: UITextField) {
@@ -46,9 +47,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        birthTextField.delegate = self
     }
     
+    //MARK: -- URLSession
     func sendRequestWithURLSession() {
         // Создаем модель
         let model = Character(birth: birthTF, occupation: occuppationTF, name: nameTF, lastname: lastnameTF, country: countryTF)
@@ -81,7 +83,7 @@ class ViewController: UIViewController {
         }.resume()
     }
         
-    
+    //MARK: -- Alamofire
     func sendRequestWithAlamofire() {
         // Создаем модель
         let character = Character(birth: birthTF, occupation: occuppationTF, name: nameTF, lastname: lastnameTF, country: countryTF)
@@ -102,18 +104,33 @@ class ViewController: UIViewController {
     }
     
     private func showAlertAccess() {
-        let alert = UIAlertController(title: "Success", message: "Данные успешно отправлены", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Success", message: "Поздравляем. Данные успешно отправлены.", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
     
     private func showAlertFailure() {
-        let alert = UIAlertController(title: "Error", message: "Что-то пошло не так", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error", message: "Что-то пошло не так. Повторите попытку.", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
 }
 
+//MARK: -- UITextFieldDelegate
+extension ViewController: UITextFieldDelegate {
+    
+    //Дата рождения ограничена только вводом 4 цифр
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let maxLenght = 4
+        let allowedCharacters = "1234567890"
+        
+        let newLength: Int = textField.text!.count + string.count - range.length
+        let numberOnly = NSCharacterSet.init(charactersIn: allowedCharacters).inverted
+        let strValid = string.rangeOfCharacter(from: numberOnly) == nil
+        return (strValid && (newLength <= maxLenght))
+    }
+}
 

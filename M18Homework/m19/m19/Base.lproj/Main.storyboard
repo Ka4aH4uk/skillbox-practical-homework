@@ -183,6 +183,9 @@
                             <constraint firstItem="P8r-ZL-Ovi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zlx-3o-pk4"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="birthTextField" destination="0kp-m8-gpF" id="K0G-Vw-qeV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
