@@ -16,7 +16,7 @@ class ViewController: UIViewController {
             tableView?.dataSource = self
         }
     }
-    
+        
     @IBAction func sortedArtist(_ sender: Any) {
         
     }
@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Artists> = {
         let fetchRequest = Artists.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "lastname", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
@@ -69,8 +69,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if let sections = fetchedResultsController.sections {
             //print(sections[section].numberOfObjects)
             return sections[section].numberOfObjects
+        } else {
+            return 0
         }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,8 +112,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: -- NSFetchedResultsControllerDelegate
 extension ViewController: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
+        print("Start")
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -120,32 +123,39 @@ extension ViewController: NSFetchedResultsControllerDelegate {
         case .insert:
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .automatic)
-                tableView.reloadData()
+                print("Add")
+//                tableView.reloadData()
             }
         case .update:
             if let indexPath = indexPath {
                 let artist = fetchedResultsController.object(at: indexPath)
                 let cell = tableView.cellForRow(at: indexPath)
                 cell?.textLabel?.text = (artist.lastname! + " " + artist.name!)
+                print("Update")
             }
         case .delete:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
-                tableView.reloadData()
+                print("Delete")
+//                tableView.reloadData()
             }
         case .move:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
+                print("Move")
             }
             if let newIndexPath = newIndexPath {
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
+                print("Move")
             }
         default:
             tableView.reloadData()
         }
     }
     
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+        print("Finish")
     }
+
 }
