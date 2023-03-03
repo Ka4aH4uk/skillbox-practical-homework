@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02C9185929B0F15900E920D3 /* Artists+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9185329AFC12E00E920D3 /* Artists+CoreDataClass.swift */; };
+		02C9185A29B0F15D00E920D3 /* Artists+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9185429AFC12E00E920D3 /* Artists+CoreDataProperties.swift */; };
+		02C9185B29B0F16E00E920D3 /* ArtistsList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02C9185029AFBFE800E920D3 /* ArtistsList.xcdatamodeld */; };
 		02F3F26029AD07AA003B758F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F3F25F29AD07AA003B758F /* AppDelegate.swift */; };
 		02F3F26229AD07AA003B758F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F3F26129AD07AA003B758F /* SceneDelegate.swift */; };
 		02F3F26429AD07AA003B758F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F3F26329AD07AA003B758F /* ViewController.swift */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02C9185129AFBFE800E920D3 /* ArtistsList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArtistsList.xcdatamodel; sourceTree = "<group>"; };
+		02C9185329AFC12E00E920D3 /* Artists+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Artists+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		02C9185429AFC12E00E920D3 /* Artists+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Artists+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		02F3F25C29AD07AA003B758F /* m19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = m19.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02F3F25F29AD07AA003B758F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02F3F26129AD07AA003B758F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02C9184F29AF909E00E920D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				02C9185329AFC12E00E920D3 /* Artists+CoreDataClass.swift */,
+				02C9185429AFC12E00E920D3 /* Artists+CoreDataProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		02F3F25329AD07AA003B758F = {
 			isa = PBXGroup;
 			children = (
@@ -62,12 +77,14 @@
 			children = (
 				02F3F25F29AD07AA003B758F /* AppDelegate.swift */,
 				02F3F26129AD07AA003B758F /* SceneDelegate.swift */,
+				02C9184F29AF909E00E920D3 /* Model */,
 				02F3F26329AD07AA003B758F /* ViewController.swift */,
 				02F3F27329AD09B8003B758F /* AddEditArtistViewController.swift */,
 				02F3F26529AD07AA003B758F /* Main.storyboard */,
 				02F3F26829AD07AD003B758F /* Assets.xcassets */,
 				02F3F26A29AD07AD003B758F /* LaunchScreen.storyboard */,
 				02F3F26D29AD07AD003B758F /* Info.plist */,
+				02C9185029AFBFE800E920D3 /* ArtistsList.xcdatamodeld */,
 			);
 			path = m19;
 			sourceTree = "<group>";
@@ -152,7 +169,10 @@
 				02F3F26429AD07AA003B758F /* ViewController.swift in Sources */,
 				02F3F26029AD07AA003B758F /* AppDelegate.swift in Sources */,
 				02F3F26229AD07AA003B758F /* SceneDelegate.swift in Sources */,
+				02C9185B29B0F16E00E920D3 /* ArtistsList.xcdatamodeld in Sources */,
+				02C9185929B0F15900E920D3 /* Artists+CoreDataClass.swift in Sources */,
 				02F3F27429AD09B8003B758F /* AddEditArtistViewController.swift in Sources */,
+				02C9185A29B0F15D00E920D3 /* Artists+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,8 +325,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,8 +353,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -389,6 +409,19 @@
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		02C9185029AFBFE800E920D3 /* ArtistsList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				02C9185129AFBFE800E920D3 /* ArtistsList.xcdatamodel */,
+			);
+			currentVersion = 02C9185129AFBFE800E920D3 /* ArtistsList.xcdatamodel */;
+			path = ArtistsList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 02F3F25429AD07AA003B758F /* Project object */;
 }
