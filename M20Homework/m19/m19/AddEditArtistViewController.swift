@@ -27,7 +27,7 @@ class AddEditArtistViewController: ViewController {
         let textField = UITextField()
         textField.textAlignment = .left
         textField.placeholder = "Keith"
-        textField.font = UIFont.systemFont(ofSize: 18)
+        textField.font = UIFont.systemFont(ofSize: 20)
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.backgroundColor = .white
@@ -46,7 +46,7 @@ class AddEditArtistViewController: ViewController {
         let textField = UITextField()
         textField.textAlignment = .left
         textField.placeholder = "Flint"
-        textField.font = UIFont.systemFont(ofSize: 18)
+        textField.font = UIFont.systemFont(ofSize: 20)
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.backgroundColor = .white
@@ -66,7 +66,7 @@ class AddEditArtistViewController: ViewController {
         textField.textAlignment = .left
         textField.placeholder = "17.09.1969"
         textField.keyboardType = .numberPad
-        textField.font = UIFont.systemFont(ofSize: 18)
+        textField.font = UIFont.systemFont(ofSize: 20)
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.backgroundColor = .white
@@ -85,7 +85,7 @@ class AddEditArtistViewController: ViewController {
         let textField = UITextField()
         textField.textAlignment = .left
         textField.placeholder = "England"
-        textField.font = UIFont.systemFont(ofSize: 18)
+        textField.font = UIFont.systemFont(ofSize: 20)
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.backgroundColor = .white
@@ -126,15 +126,26 @@ class AddEditArtistViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let backButton = UIBarButtonItem(title: "❮ Назад", style: .done, target: self, action: #selector(popVC(sender:)))
+        backButton.tintColor = .systemOrange
+        navigationItem.leftBarButtonItem = backButton
+        
         birthTF.delegate = self
         setupViews()
         setupConstraints()
+        
         if let artists = artists {
             nameTF.text = artists.name
             lastnameTF.text = artists.lastname
             birthTF.text = artists.birth
             countryTF.text = artists.country
         }
+    }
+    
+    @objc func popVC(sender: UIBarButtonItem) {
+       navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Private

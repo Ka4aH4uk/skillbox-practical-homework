@@ -16,10 +16,8 @@ class ViewController: UIViewController {
             tableView?.dataSource = self
         }
     }
-        
-    @IBAction func sortedArtist(_ sender: Any) {
-        
-    }
+    
+    let defaults = UserDefaults.standard
     
     //Инициализируем CoreData
     private let persistentContainer = NSPersistentContainer(name: "ArtistsList")
@@ -35,6 +33,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationController?.navigationBar.prefersLargeTitles = true
+        let button = UIBarButtonItem(title: "", image: UIImage(systemName: "list.bullet.indent"), menu: sortingArtist())
+        button.tintColor = .systemOrange
+        self.navigationItem.leftBarButtonItem = button
+
         persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
             if let error = error {
                 print("\(error), \(error.localizedDescription)")
@@ -56,6 +60,41 @@ class ViewController: UIViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    private func sortingArtist() -> UIMenu {
+        let menu = UIMenu(title: "", children: [
+            UIAction(title: "Сортировать А-Я / A-Z") { [self] action in
+                do {
+                    _ = Artists.fetchRequest()
+                    let sortDescriptor = NSSortDescriptor(key: "lastname", ascending: true)
+                    fetchedResultsController.fetchRequest.sortDescriptors = [sortDescriptor]
+                    defaults.set(1, forKey: "ascending")
+                    try self.fetchedResultsController.performFetch()
+                    print("Sorting A-Z")
+                }
+                catch {
+                    print(error)
+                }
+                self.tableView.reloadData()
+            },
+
+            UIAction(title: "Сортировать Я-А / Z-A") { [self] action in
+                do {
+                    _ = Artists.fetchRequest()
+                    let sortDescriptor = NSSortDescriptor(key: "lastname", ascending: false)
+                    fetchedResultsController.fetchRequest.sortDescriptors = [sortDescriptor]
+                    defaults.set(2, forKey: "ascending")
+                    try self.fetchedResultsController.performFetch()
+                    print("Sorting Z-A")
+                }
+                catch {
+                    print(error)
+                }
+                self.tableView.reloadData()
+            }
+        ])
+        return menu
+    }
 }
 
 //MARK: -- UITableViewDelegate, UITableViewDataSource
@@ -67,7 +106,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchedResultsController.sections {
-            //print(sections[section].numberOfObjects)
             return sections[section].numberOfObjects
         } else {
             return 0
@@ -124,7 +162,6 @@ extension ViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .automatic)
                 print("Add")
-//                tableView.reloadData()
             }
         case .update:
             if let indexPath = indexPath {
@@ -137,7 +174,6 @@ extension ViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 print("Delete")
-//                tableView.reloadData()
             }
         case .move:
             if let indexPath = indexPath {
