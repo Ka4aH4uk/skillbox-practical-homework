@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     lazy var fish: UIImageView = {
         let image = UIImage(named: "fish")
         let view = UIImageView(image: image)
-        view.frame = CGRect( x: 0, y: 0, width: 200, height: 200)
+        view.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
         view.contentMode = .scaleAspectFit
         return view
     }()
