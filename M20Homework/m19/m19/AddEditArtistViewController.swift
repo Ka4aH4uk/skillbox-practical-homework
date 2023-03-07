@@ -103,7 +103,7 @@ class AddEditArtistViewController: ViewController {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         stackView.alignment = .fill
         stackView.spacing = 10
         stackView.addArrangedSubview(nameLabel)
@@ -155,7 +155,7 @@ class AddEditArtistViewController: ViewController {
     
     private func setupConstraints() {
         stackView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).inset(360)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).inset(300)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leadingMargin).inset(10)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailingMargin).inset(10)

@@ -8,6 +8,10 @@
 import UIKit
 import CoreData
 
+enum Key {
+    static let sortingAscending = "ascending"
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView! {
@@ -17,14 +21,17 @@ class ViewController: UIViewController {
         }
     }
     
+    //UserDefaults
     let defaults = UserDefaults.standard
+    private var sortAscTrue: Bool? = true
+    private var sortAscFalse: Bool? = false
     
     //Инициализируем CoreData
     private let persistentContainer = NSPersistentContainer(name: "ArtistsList")
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Artists> = {
         let fetchRequest = Artists.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "lastname", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "lastname", ascending: defaults.bool(forKey: Key.sortingAscending))
         fetchRequest.sortDescriptors = [sortDescriptor]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
@@ -33,7 +40,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        defaults.bool(forKey: Key.sortingAscending)
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         let button = UIBarButtonItem(title: "", image: UIImage(systemName: "list.bullet.indent"), menu: sortingArtist())
         button.tintColor = .systemOrange
@@ -62,13 +71,13 @@ class ViewController: UIViewController {
     }
     
     private func sortingArtist() -> UIMenu {
-        let menu = UIMenu(title: "", children: [
-            UIAction(title: "Сортировать А-Я / A-Z") { [self] action in
+        let menu = UIMenu(title: "Сортировать по фамилии от:", children: [
+            UIAction(title: "А-Я (A-Z)") { [self] action in
                 do {
                     _ = Artists.fetchRequest()
-                    let sortDescriptor = NSSortDescriptor(key: "lastname", ascending: true)
-                    fetchedResultsController.fetchRequest.sortDescriptors = [sortDescriptor]
-                    defaults.set(1, forKey: "ascending")
+                    let sortDescriptor1 = NSSortDescriptor(key: "lastname", ascending: true)
+                    fetchedResultsController.fetchRequest.sortDescriptors = [sortDescriptor1]
+                    defaults.set(sortAscTrue, forKey: Key.sortingAscending)
                     try self.fetchedResultsController.performFetch()
                     print("Sorting A-Z")
                 }
@@ -78,12 +87,12 @@ class ViewController: UIViewController {
                 self.tableView.reloadData()
             },
 
-            UIAction(title: "Сортировать Я-А / Z-A") { [self] action in
+            UIAction(title: "Я-А (Z-A)") { [self] action in
                 do {
                     _ = Artists.fetchRequest()
-                    let sortDescriptor = NSSortDescriptor(key: "lastname", ascending: false)
-                    fetchedResultsController.fetchRequest.sortDescriptors = [sortDescriptor]
-                    defaults.set(2, forKey: "ascending")
+                    let sortDescriptor2 = NSSortDescriptor(key: "lastname", ascending: false)
+                    fetchedResultsController.fetchRequest.sortDescriptors = [sortDescriptor2]
+                    defaults.set(sortAscFalse, forKey: Key.sortingAscending)
                     try self.fetchedResultsController.performFetch()
                     print("Sorting Z-A")
                 }
@@ -167,7 +176,7 @@ extension ViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = indexPath {
                 let artist = fetchedResultsController.object(at: indexPath)
                 let cell = tableView.cellForRow(at: indexPath)
-                cell?.textLabel?.text = (artist.lastname! + " " + artist.name!)
+                cell?.textLabel?.text = (artist.lastname ?? "") + " " + (artist.name ?? "")
                 print("Update")
             }
         case .delete:
@@ -193,5 +202,4 @@ extension ViewController: NSFetchedResultsControllerDelegate {
         tableView.endUpdates()
         print("Finish")
     }
-
 }
