@@ -17,7 +17,7 @@ protocol MainViewProtocol: AnyObject {
 
 protocol MainViewPresenterProtocol: AnyObject {
     init(view: MainViewProtocol, networkService: NetworkServiceProtocol)
-    func getTracks(searchText: String, completion: ((Error?) -> ())?)
+    func getTracks(searchText: String, completion: ((Error?) -> Void)?)
     var track: [Results]? { get set }
 }
 
@@ -25,25 +25,25 @@ final class MainPresenter: MainViewPresenterProtocol {
     weak var view: MainViewProtocol?
     let networkService: NetworkServiceProtocol!
     var track: [Results]?
-    
+
     required init(view: MainViewProtocol, networkService: NetworkServiceProtocol) {
         self.view = view
         self.networkService = networkService
         getTracks(searchText: "", completion: nil)
     }
-    
-    func getTracks(searchText: String, completion: ((Error?) -> ())? = nil) {
+
+    func getTracks(searchText: String, completion: ((Error?) -> Void)? = nil) {
         let urlString = "https://itunes.apple.com/search?term=\(searchText)"
-        networkService?.getTracks(urlString: urlString, completion: { [weak self] (result: Result<Tracks?,Error>) -> Void in
+        networkService?.getTracks(urlString: urlString, completion: { [weak self] (result: Result<Tracks?, Error>) -> Void in
             guard let self = self else {return}
             DispatchQueue.main.async {
                 switch result {
-                case .success(let track) :
+                case .success(let track):
                     guard track != nil else { return }
                     self.track = track?.results
                     self.view?.success()
                     completion?(nil)
-                case .failure(let error) :
+                case .failure(let error):
                     completion?(error)
                 }
             }

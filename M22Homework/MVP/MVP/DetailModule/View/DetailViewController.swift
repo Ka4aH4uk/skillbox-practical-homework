@@ -9,16 +9,16 @@ import UIKit
 import SnapKit
 
 final class DetailViewController: UIViewController {
-    
+
     var presenter: DetailViewPresenterProtocol!
-    
+
     private lazy var posterImage: UIImageView = {
         let image = UIImage()
         let view = UIImageView(image: image)
         view.contentMode = .scaleAspectFit
         return view
     }()
-    
+
     private lazy var artistLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -27,7 +27,7 @@ final class DetailViewController: UIViewController {
         label.textColor = .systemPurple
         return label
     }()
-    
+
     private lazy var albumLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -45,7 +45,7 @@ final class DetailViewController: UIViewController {
         label.textColor = .white
         return label
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.setDetails()

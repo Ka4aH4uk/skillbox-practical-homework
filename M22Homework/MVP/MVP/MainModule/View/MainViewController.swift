@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    
     var presenter: MainViewPresenterProtocol!
-    
+    let cellId = "MyCustomCell"
+
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.backgroundColor = .purple
@@ -20,7 +20,7 @@ final class MainViewController: UIViewController {
         searchController.searchBar.searchTextField.backgroundColor = .white
         return searchController
     }()
-    
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.separatorStyle = .singleLine
@@ -29,14 +29,12 @@ final class MainViewController: UIViewController {
         tableView.separatorColor = .darkGray
         return tableView
     }()
-    
+
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .green
         return view
     }()
-    
-    let cellId = "MyCustomCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,19 +62,18 @@ extension MainViewController {
         }
     }
 }
-//MARK: -- TableViewDataSource
+// MARK: - TableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.track?.count ?? 0
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? CustomCell
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.purple
         cell?.selectedBackgroundView = backgroundView
         cell?.backgroundColor = .black
-        
+
         let track = presenter.track?[indexPath.row]
 
         let queue = DispatchQueue.global(qos: .userInteractive)
@@ -96,19 +93,19 @@ extension MainViewController: UITableViewDataSource {
         return cell ?? UITableViewCell()
     }
 }
-//MARK: -- TableViewDelegate
+// MARK: - TableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 94
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let track = (presenter.track?[indexPath.row])!
         let detailVC = ModuleBuilder.createDetailModule(track: track)
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
-//MARK: -- SearchBarDelegate 
+
+// MARK: - SearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         presenter.getTracks(searchText: searchBar.text ?? "") { error in
@@ -118,7 +115,6 @@ extension MainViewController: UISearchBarDelegate {
             self.showLoadingIndicator()
         }
     }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.hideLoadingIndicator()
     }
@@ -128,18 +124,14 @@ extension MainViewController: MainViewProtocol {
     func showLoadingIndicator() {
         activityIndicator.startAnimating()
     }
-    
     func hideLoadingIndicator() {
         activityIndicator.stopAnimating()
-        view.willRemoveSubview(self.activityIndicator)
+        view.willRemoveSubview(activityIndicator)
     }
-    
     func success() {
         tableView.reloadData()
     }
-    
     func failure(error: Error) {
         print(error.localizedDescription)
     }
 }
-

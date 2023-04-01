@@ -32,5 +32,3 @@ final class NetworkService: NetworkServiceProtocol {
         task.resume()
     }
 }
-
-

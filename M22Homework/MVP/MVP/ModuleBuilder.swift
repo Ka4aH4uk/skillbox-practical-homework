@@ -20,7 +20,7 @@ struct ModuleBuilder: Builder {
         view.presenter = presenter
         return view
     }
-    
+
     static func createDetailModule(track: Results) -> UIViewController {
         let view = DetailViewController()
         let networkService: NetworkServiceProtocol = NetworkService()
