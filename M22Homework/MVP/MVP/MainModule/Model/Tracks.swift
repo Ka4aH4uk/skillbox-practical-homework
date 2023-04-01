@@ -7,23 +7,21 @@
 
 import Foundation
 
-// MARK: - SearchResponse
-struct SearchResponse: Decodable {
+// MARK: - Tracks
+struct Tracks: Codable {
     let resultCount: Int?
-    let results: [Tracks]?
+    let results: [Results]?
 }
 
 // MARK: - Result
-struct Tracks: Decodable {
-    let artistName: String
-    let collectionName, trackName, collectionCensoredName, trackCensoredName: String?
-    let artistViewURL, collectionViewURL, trackViewURL: String?
-    let artworkUrl30: String?
-    let artworkUrl60, artworkUrl100: String
-    let primaryGenreName: String
-    let copyright, description: String?
-    let collectionArtistName: String?
-    let collectionArtistViewURL: String?
-    let contentAdvisoryRating: String?
+struct Results: Codable {
+    let artistName, collectionName, trackName, collectionCensoredName: String?
+    let trackCensoredName: String?
+    let collectionArtistID: Int?
+    let collectionArtistViewURL, collectionViewURL, trackViewURL: String?
+    let previewURL: String?
+    let artworkUrl30, artworkUrl60, artworkUrl100: String?
+    let collectionPrice, trackPrice, trackRentalPrice, collectionHDPrice: Double?
+    let trackHDPrice, trackHDRentalPrice: Double?
     let shortDescription, longDescription: String?
 }

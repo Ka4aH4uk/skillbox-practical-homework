@@ -6,27 +6,18 @@
 //
 
 import UIKit
-import SnapKit
 
-class ViewController: UIViewController {
+final class MainViewController: UIViewController {
     
-    let networkDataFetcher = NetworkDataFetcher()
-    var searchResponse: SearchResponse? = nil
-    
-    private var timer: Timer?
-
-    let cellId = "MyCustomCell"
+    var presenter: MainViewPresenterProtocol!
     
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.backgroundColor = .black
+        searchController.searchBar.backgroundColor = .purple
         searchController.searchBar.placeholder = "Поиск в медиатеке"
-        searchController.searchBar.tintColor = .systemGreen
+        searchController.searchBar.tintColor = .green
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Отменить"
-        searchController.searchBar.searchTextField.textColor = .white
-        searchController.searchBar.searchTextField.textColor = .black
         searchController.searchBar.searchTextField.backgroundColor = .white
-        searchController.searchBar.searchTextField.clearButtonMode = .never // grey x
         return searchController
     }()
     
@@ -36,32 +27,33 @@ class ViewController: UIViewController {
         tableView.backgroundColor = .black
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 82, bottom: 0, right: 16)
         tableView.separatorColor = .darkGray
-        tableView.tableHeaderView = searchController.searchBar
         return tableView
     }()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
-        view.color = .purple
+        view.color = .green
         return view
     }()
     
+    let cellId = "MyCustomCell"
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-        tableView.register(MyCustomCell.self, forCellReuseIdentifier: cellId)
-        tableView.rowHeight = 94
-        tableView.dataSource = self
-        tableView.delegate = self
+        setupViews()
+    }
+}
+
+extension MainViewController {
+    private func setupViews() {
+        title = "Music"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor = .purple
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
-        setupViews()
-        showSearchKeyboard(seconds: 1) {
-            self.searchController.searchBar.becomeFirstResponder()
-        }
-    }
-    
-    private func setupViews() {
+        tableView.register(CustomCell.self, forCellReuseIdentifier: cellId)
+        tableView.dataSource = self
+        tableView.delegate = self
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
@@ -71,74 +63,83 @@ class ViewController: UIViewController {
             make.center.equalToSuperview()
         }
     }
-    
-    private func showSearchKeyboard(seconds: Int, queue: DispatchQueue = DispatchQueue.main, complition: @escaping () -> Void) {
-        queue.asyncAfter(deadline: .now() + .seconds(seconds)) {
-            complition()
-        }
-    }
 }
-
-//MARK: -- UITableViewDataSource, UITableViewDelegate
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
-    
+//MARK: -- TableViewDataSource
+extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResponse?.results?.count ?? 0
+        return presenter.track?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? MyCustomCell
-        let film = searchResponse?.results?[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? CustomCell
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.purple
         cell?.selectedBackgroundView = backgroundView
         cell?.backgroundColor = .black
         
+        let track = presenter.track?[indexPath.row]
+
         let queue = DispatchQueue.global(qos: .userInteractive)
         queue.async {
-            let urlImage = URL(string: (self.searchResponse!.results![indexPath.row].artworkUrl100))
+            let urlImage = URL(string: (self.presenter.track?[indexPath.row].artworkUrl100)!)
             URLSession.shared.dataTask(with: urlImage!) { data, _, _ in
                 guard let data = data else { return }
                 DispatchQueue.main.async {
                     cell?.poster.image = UIImage(data: data)
-                    self.activityIndicator.stopAnimating()
-                    self.view.willRemoveSubview(self.activityIndicator)
+                    self.hideLoadingIndicator()
                 }
             }.resume()
         }
-        
-        cell?.headerLabel.text = film?.trackName
-        cell?.descriptionLabel.text = "Artist: \(film?.artistName ?? "")" + " / " + "Album: \(film?.collectionName ?? "")"
 
+        cell?.headerLabel.text = track?.trackName
+        cell?.descriptionLabel.text = "Artist: \(track?.artistName ?? "-")" + " / " + "Album: \(track?.collectionName ?? "-")"
         return cell ?? UITableViewCell()
+    }
+}
+//MARK: -- TableViewDelegate
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 94
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = InformViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let track = (presenter.track?[indexPath.row])!
+        let detailVC = ModuleBuilder.createDetailModule(track: track)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
-
-//MARK: -- UISearchBarDelegate
-extension ViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //let urlString = "https://imdb-api.com/API/Search/k_gx3jblop/\(searchText)"
-        let urlString = "https://itunes.apple.com/search?term=\(searchText)"
-
-        //Timer
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (_) in
-            self.networkDataFetcher.fetchFilms(urlString: urlString) { [weak self] (searchResponse) in
-                guard let searchResponse = searchResponse else { return }
-                self?.searchResponse = searchResponse
-                self?.tableView.reloadData()
+//MARK: -- SearchBarDelegate 
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        presenter.getTracks(searchText: searchBar.text ?? "") { error in
+            if error == nil {
+                print("Success!")
             }
-        })
-        activityIndicator.startAnimating()
+            self.showLoadingIndicator()
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.activityIndicator.stopAnimating()
-        self.view.willRemoveSubview(self.activityIndicator)
+        self.hideLoadingIndicator()
     }
 }
+
+extension MainViewController: MainViewProtocol {
+    func showLoadingIndicator() {
+        activityIndicator.startAnimating()
+    }
+    
+    func hideLoadingIndicator() {
+        activityIndicator.stopAnimating()
+        view.willRemoveSubview(self.activityIndicator)
+    }
+    
+    func success() {
+        tableView.reloadData()
+    }
+    
+    func failure(error: Error) {
+        print(error.localizedDescription)
+    }
+}
+
