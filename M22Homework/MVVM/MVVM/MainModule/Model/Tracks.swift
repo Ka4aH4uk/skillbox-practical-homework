@@ -16,6 +16,7 @@ struct Tracks: Codable {
 // MARK: - Result
 struct Results: Codable {
     let artistName, collectionName, trackName, collectionCensoredName: String?
+    let collectionID, trackID: Int?
     let trackCensoredName: String?
     let collectionArtistID: Int?
     let collectionArtistViewURL, collectionViewURL, trackViewURL: String?
