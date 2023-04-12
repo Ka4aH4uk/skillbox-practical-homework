@@ -14,7 +14,7 @@ final class ItemListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemYellow
         title = "ItemList"
 
         let loginButton = UIButton(title: "Login", target: self, selector: #selector(onLoginButton))

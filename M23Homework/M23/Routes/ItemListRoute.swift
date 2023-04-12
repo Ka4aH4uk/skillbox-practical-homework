@@ -12,7 +12,7 @@ extension ItemListRoute where Self: Router {
         router.root = viewController
 
         let navigation = UINavigationController(rootViewController: viewController)
-        navigation.tabBarItem = UITabBarItem(title: "List", image: nil, tag: 0)
+        navigation.tabBarItem = UITabBarItem(title: "List", image: UIImage(systemName: "person"), tag: 0)
         return navigation
     }
 

@@ -1,8 +1,14 @@
-//
-//  ModalScreenViewModel.swift
-//  M23
-//
-//  Created by Ka4aH on 11.04.2023.
-//
-
 import Foundation
+
+final class ModalScreenViewModel {
+    typealias Routes = Dismissable & NewTransitionRoute & ModalScreenRoute
+    private let router: Routes
+
+    init(router: Routes) {
+        self.router = router
+    }
+
+    func dismiss() {
+        router.dismiss()
+    }
+}

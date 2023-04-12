@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		027C887329E4A1A000BE8BC1 /* NewTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027C887229E4A1A000BE8BC1 /* NewTransitionViewController.swift */; };
+		027C887529E4A1E600BE8BC1 /* NewTransitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027C887429E4A1E600BE8BC1 /* NewTransitionViewModel.swift */; };
+		027C887729E4A20200BE8BC1 /* NewTransitionRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027C887629E4A20200BE8BC1 /* NewTransitionRoute.swift */; };
+		027C887B29E5725700BE8BC1 /* CustomTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027C887A29E5725700BE8BC1 /* CustomTransitionAnimation.swift */; };
+		027C887E29E579CD00BE8BC1 /* ModalScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027C887D29E579CD00BE8BC1 /* ModalScreenViewModel.swift */; };
+		027C888029E579EA00BE8BC1 /* ModalScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027C887F29E579EA00BE8BC1 /* ModalScreenViewController.swift */; };
+		027C888229E57A8C00BE8BC1 /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027C888129E57A8C00BE8BC1 /* CustomTransition.swift */; };
+		027C888429E5FC4100BE8BC1 /* ModalScreenRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027C888329E5FC4100BE8BC1 /* ModalScreenRoute.swift */; };
 		943E9A3427D8B50A00BDBC78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943E9A3327D8B50A00BDBC78 /* AppDelegate.swift */; };
 		943E9A3627D8B50A00BDBC78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943E9A3527D8B50A00BDBC78 /* SceneDelegate.swift */; };
 		943E9A3827D8B50A00BDBC78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943E9A3727D8B50A00BDBC78 /* ViewController.swift */; };
@@ -32,6 +40,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		027C887229E4A1A000BE8BC1 /* NewTransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransitionViewController.swift; sourceTree = "<group>"; };
+		027C887429E4A1E600BE8BC1 /* NewTransitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransitionViewModel.swift; sourceTree = "<group>"; };
+		027C887629E4A20200BE8BC1 /* NewTransitionRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransitionRoute.swift; sourceTree = "<group>"; };
+		027C887A29E5725700BE8BC1 /* CustomTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionAnimation.swift; sourceTree = "<group>"; };
+		027C887D29E579CD00BE8BC1 /* ModalScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalScreenViewModel.swift; sourceTree = "<group>"; };
+		027C887F29E579EA00BE8BC1 /* ModalScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalScreenViewController.swift; sourceTree = "<group>"; };
+		027C888129E57A8C00BE8BC1 /* CustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
+		027C888329E5FC4100BE8BC1 /* ModalScreenRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalScreenRoute.swift; sourceTree = "<group>"; };
 		943E9A3027D8B50A00BDBC78 /* M23.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M23.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943E9A3327D8B50A00BDBC78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		943E9A3527D8B50A00BDBC78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +85,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		027C887129E4A18900BE8BC1 /* NewTransition */ = {
+			isa = PBXGroup;
+			children = (
+				027C887429E4A1E600BE8BC1 /* NewTransitionViewModel.swift */,
+				027C887229E4A1A000BE8BC1 /* NewTransitionViewController.swift */,
+			);
+			path = NewTransition;
+			sourceTree = "<group>";
+		};
+		027C887C29E579B300BE8BC1 /* ModalScreen */ = {
+			isa = PBXGroup;
+			children = (
+				027C887D29E579CD00BE8BC1 /* ModalScreenViewModel.swift */,
+				027C887F29E579EA00BE8BC1 /* ModalScreenViewController.swift */,
+			);
+			path = ModalScreen;
+			sourceTree = "<group>";
+		};
 		943E9A2727D8B50A00BDBC78 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +125,8 @@
 				94880B8227D924FB00D1805A /* Item */,
 				94880B7F27D924FB00D1805A /* ItemList */,
 				94880B7627D924FB00D1805A /* Login */,
+				027C887129E4A18900BE8BC1 /* NewTransition */,
+				027C887C29E579B300BE8BC1 /* ModalScreen */,
 				94880B7927D924FB00D1805A /* Routes */,
 				94880B8527D924FB00D1805A /* Transition */,
 				943E9A3327D8B50A00BDBC78 /* AppDelegate.swift */,
@@ -120,6 +156,8 @@
 				94880B7C27D924FB00D1805A /* ItemRoute.swift */,
 				94880B7D27D924FB00D1805A /* ItemListRoute.swift */,
 				94880B7E27D924FB00D1805A /* LoginRoute.swift */,
+				027C887629E4A20200BE8BC1 /* NewTransitionRoute.swift */,
+				027C888329E5FC4100BE8BC1 /* ModalScreenRoute.swift */,
 			);
 			path = Routes;
 			sourceTree = "<group>";
@@ -159,6 +197,8 @@
 			children = (
 				94880B9A27D9D1A300D1805A /* AnimatedTransition.swift */,
 				94880B9C27D9D20E00D1805A /* FadeAnimatedTransitioning.swift */,
+				027C888129E57A8C00BE8BC1 /* CustomTransition.swift */,
+				027C887A29E5725700BE8BC1 /* CustomTransitionAnimation.swift */,
 			);
 			path = Animated;
 			sourceTree = "<group>";
@@ -232,26 +272,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				027C887B29E5725700BE8BC1 /* CustomTransitionAnimation.swift in Sources */,
 				94880B9327D924FB00D1805A /* ItemViewModel.swift in Sources */,
+				027C888029E579EA00BE8BC1 /* ModalScreenViewController.swift in Sources */,
 				94880B8E27D924FB00D1805A /* ItemRoute.swift in Sources */,
 				94880B8A27D924FB00D1805A /* LoginViewModel.swift in Sources */,
+				027C888429E5FC4100BE8BC1 /* ModalScreenRoute.swift in Sources */,
 				94880B9727D924FB00D1805A /* EmptyTransition.swift in Sources */,
 				94880B9527D924FB00D1805A /* ModalTransition.swift in Sources */,
 				943E9A3827D8B50A00BDBC78 /* ViewController.swift in Sources */,
+				027C887329E4A1A000BE8BC1 /* NewTransitionViewController.swift in Sources */,
 				94880B9D27D9D20E00D1805A /* FadeAnimatedTransitioning.swift in Sources */,
 				94880B9027D924FB00D1805A /* LoginRoute.swift in Sources */,
 				94880B9627D924FB00D1805A /* Transition.swift in Sources */,
 				94880B8D27D924FB00D1805A /* DefaultRouter.swift in Sources */,
 				94880B9227D924FB00D1805A /* ItemListViewController.swift in Sources */,
 				94880B9427D924FB00D1805A /* ItemViewController.swift in Sources */,
+				027C887E29E579CD00BE8BC1 /* ModalScreenViewModel.swift in Sources */,
 				943E9A3427D8B50A00BDBC78 /* AppDelegate.swift in Sources */,
+				027C887529E4A1E600BE8BC1 /* NewTransitionViewModel.swift in Sources */,
 				94880B8F27D924FB00D1805A /* ItemListRoute.swift in Sources */,
 				94880B8B27D924FB00D1805A /* LoginViewController.swift in Sources */,
 				94880B9127D924FB00D1805A /* ItemListViewModel.swift in Sources */,
 				94880B8C27D924FB00D1805A /* Router.swift in Sources */,
+				027C888229E57A8C00BE8BC1 /* CustomTransition.swift in Sources */,
 				94880B9827D924FB00D1805A /* PushTransition.swift in Sources */,
 				943E9A3627D8B50A00BDBC78 /* SceneDelegate.swift in Sources */,
 				94880B9B27D9D1A300D1805A /* AnimatedTransition.swift in Sources */,
+				027C887729E4A20200BE8BC1 /* NewTransitionRoute.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

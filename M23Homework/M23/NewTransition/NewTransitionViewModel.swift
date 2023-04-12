@@ -1,8 +1,14 @@
-//
-//  NewTransitionViewModel.swift
-//  M23
-//
-//  Created by Ka4aH on 10.04.2023.
-//
-
 import Foundation
+
+final class NewTransitionViewModel {
+    typealias Routes = NewTransitionRoute & ModalScreenRoute
+    private var router: Routes
+
+    init(router: Routes) {
+        self.router = router
+    }
+
+    func openModalScreen() {
+        router.openModalScreen()
+    }
+}
