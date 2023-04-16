@@ -6,12 +6,12 @@ struct MainView<MainRouter: Router>: View where MainRouter.Route == MainRoute {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Hello, world!")
+                Text("Hello, Sergey!")
                     .padding()
-                .navigationTitle("Main")
+                    .navigationTitle("Main")
                 
                 router.viewFor(route: .loginView(data: "Login")) {
-                    Text("переход на логин")
+                    Text("Переход на Login")
                 }
             }
         }
@@ -19,10 +19,11 @@ struct MainView<MainRouter: Router>: View where MainRouter.Route == MainRoute {
 }
 
 struct LoginView: View {
-  let text: String
-  var body: some View {
-    Text(text)
-  }
+    let text: String
+    
+    var body: some View {
+        Text(text)
+    }
 }
 
 struct MainView_Previews: PreviewProvider {
