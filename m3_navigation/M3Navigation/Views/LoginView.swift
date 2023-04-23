@@ -1,31 +1,49 @@
 import SwiftUI
 
 struct LoginView: View {
-    @Binding var text: String
+    @EnvironmentObject var router: TabBarRouter
+    @State private var loginData: String = ""
+    @State private var passData: String = ""
     
     var body: some View {
         NavigationView {
-            VStack {
-                Text("")
-                    .navigationTitle("Login")
-                TextField("Enter login", text: $text)
-                    .padding()
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                Button(action: {
-                    // Действие при нажатии на кнопку
-                }, label: {
-                    Text("Войти в ЛК")
-                })
-                .padding()
+            ZStack {
+                Image("loginImage")
+                    .aspectRatio(contentMode: .fill)
+                VStack {
+                    Spacer()
+                    TextField("Введите логин", text: $loginData)
+                        .frame(maxWidth: 360)
+                        .textFieldStyle(.roundedBorder)
+                        .foregroundColor(.blue)
+                        .accentColor(.green)
+                    TextField("Введите пароль", text: $passData)
+                        .frame(maxWidth: 360)
+                        .textFieldStyle(.roundedBorder)
+                        .foregroundColor(.blue)
+                        .accentColor(.green)
+                        .padding(10)
+                    Button(action: {
+//                        router.tabSelection = .main
+                    }) {
+                        Text("Войти")
+                            .padding()
+                            .frame(maxWidth: 250)
+                            .background(.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            .padding(.bottom, 150)
+                    }
+                }
+                .navigationBarTitle("Login")
             }
         }
-        
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(text: .constant(""))
+        LoginView()
+            .environmentObject(TabBarRouter())
     }
 }

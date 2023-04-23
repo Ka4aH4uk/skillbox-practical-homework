@@ -1,12 +1,15 @@
 import SwiftUI
 
 struct CatalogView: View {
+    @EnvironmentObject var router: TabBarRouter
+
     var body: some View {
         NavigationView {
             VStack {
-                Text("")
-                    .navigationBarTitle("Catalog")
+                Image("catalogImage")
+                    .aspectRatio(contentMode: .fill)
             }
+            .navigationBarTitle("Catalog")
         }
     }
 }
@@ -14,22 +17,6 @@ struct CatalogView: View {
 struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
         CatalogView()
+            .environmentObject(TabBarRouter())
     }
 }
-
-//struct CatalogView: View {
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                Text("")
-//                    .navigationTitle("Catalog")
-//            }
-//        }
-//    }
-//}
-//
-//struct CatalogView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CatalogView()
-//    }
-//}
