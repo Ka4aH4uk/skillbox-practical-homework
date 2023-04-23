@@ -24,6 +24,8 @@ struct LoginView: View {
                         .accentColor(.green)
                         .padding(10)
                     Button(action: {
+                        loginData = ""
+                        passData = ""
 //                        router.tabSelection = .main
                     }) {
                         Text("Войти")
