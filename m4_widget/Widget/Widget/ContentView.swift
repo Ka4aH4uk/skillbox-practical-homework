@@ -1,79 +1,75 @@
 import SwiftUI
-
-enum Key {
-    static var text = "TEXT_KEY"
-    static var colorText = "COLORTEXT_KEY"
-    static var backgroundColor = "BACKGROUNDCOLOR_KEY"
-    static var date = "DATE_KEY"
-}
+import WidgetKit
 
 struct ContentView: View {
+    @AppStorage("COLORTEXT_KEY", store: UserDefaults(suiteName: "group.skillbox.k4"))
+    var colorTextData: Data = Data()
+    @AppStorage("BACKGROUNDCOLOR_KEY", store: UserDefaults(suiteName: "group.skillbox.k4"))
+    var backgroundColorData: Data = Data()
+    
     @State private var text: String = ""
     @State private var colorText: Color = .black
     @State private var backgroundColor: Color = .white
     @State private var date: Date = Date()
-    private var userDefaults = UserDefaults.standard
     
     var body: some View {
         NavigationView {
             List {
-                Group {
-                    TextField("Текст", text: $text)
-                        .onChange(of: text, perform: { _ in
-                            saveUserData()
-                        })
-                    ColorPicker("Цвет текста", selection: $colorText)
-                        .onChange(of: colorText, perform: { _ in
-                            saveUserData()
-                        })
-                    ColorPicker("Цвет фона", selection: $backgroundColor)
-                        .onChange(of: backgroundColor, perform: { _ in
-                            saveUserData()
-                        })
-                    DatePicker("Дата", selection: $date, displayedComponents: .date)
-                        .onChange(of: date, perform: { _ in
-                            saveUserData()
-                        })
-                }
+                TextField("Введите текст", text: $text)
+                    .onChange(of: text, perform: { _ in
+                        UserDefaults(suiteName: "group.skillbox.k4")?.set(text, forKey: "TEXT_KEY")
+                        WidgetCenter.shared.reloadAllTimelines()
+                    })
+                ColorPicker("Цвет текста", selection: $colorText, supportsOpacity: false)
+                    .onChange(of: colorText, perform: { value in
+                        saveColorText(color: value)
+                    })
+                ColorPicker("Цвет фона", selection: $backgroundColor)
+                    .onChange(of: backgroundColor, perform: { value in
+                        saveBackgroundColor(color: value)
+                    })
+                DatePicker("Дата", selection: $date, displayedComponents: .date)
+                    .onChange(of: date, perform: { _ in
+                        UserDefaults(suiteName: "group.skillbox.k4")?.set(date, forKey: "DATE_KEY")
+                        WidgetCenter.shared.reloadAllTimelines()
+                    })
             }
             .navigationTitle("Настройки")
         }
         .onAppear(perform: loadUserData)
     }
     
-    // Сохраняем данные
-    private func saveUserData() {
-        userDefaults.set(text, forKey: Key.text)
-        userDefaults.set(colorToString(color: colorText), forKey: Key.colorText)
-        userDefaults.set(colorToString(color: backgroundColor), forKey: Key.backgroundColor)
-        userDefaults.set(date, forKey: Key.date)
+    //MARK: Private Methods
+    private func saveColorText(color: Color) {
+        let uiColor = UIColor(color)
+        do {
+            colorTextData = try NSKeyedArchiver.archivedData(withRootObject: uiColor, requiringSecureCoding: false)
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch let error {
+            print("error colorTextData: \(error.localizedDescription)")
+        }
     }
     
-    // Загружаем данные
+    private func saveBackgroundColor(color: Color) {
+        let uiColor = UIColor(color)
+        do {
+            backgroundColorData = try NSKeyedArchiver.archivedData(withRootObject: uiColor, requiringSecureCoding: false)
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch let error {
+            print("error backgroundColorData: \(error.localizedDescription)")
+        }
+    }
+    
     private func loadUserData() {
-        text = userDefaults.string(forKey: Key.text) ?? ""
-        if let colorTextString = userDefaults.string(forKey: Key.colorText) {
-            colorText = stringToColor(colorString: colorTextString) ?? .black
+        print("Loading user defaults...")
+        text = UserDefaults(suiteName: "group.skillbox.k4")?.string(forKey: "TEXT_KEY") ?? ""
+        if let uiColor = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorTextData) {
+            colorText = Color(uiColor)
         }
-        if let backgroundColorString = userDefaults.string(forKey: Key.backgroundColor) {
-            backgroundColor = stringToColor(colorString: backgroundColorString) ?? .white
+        if let uiColor = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: backgroundColorData) {
+            backgroundColor = Color(uiColor)
         }
-        date = userDefaults.object(forKey: Key.date) as? Date ?? Date()
-    }
-    
-    // Преобразования цвета в строку и обратно
-    func colorToString(color: Color) -> String {
-        let rgbColor = UIColor(color)
-        let data = try? NSKeyedArchiver.archivedData(withRootObject: rgbColor, requiringSecureCoding: false)
-        return data?.base64EncodedString() ?? ""
-    }
-
-    func stringToColor(colorString: String) -> Color? {
-        if let data = Data(base64Encoded: colorString),
-           let rgbColor = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data) {
-            return Color(rgbColor)
-        }
-        return nil
+        date = UserDefaults(suiteName: "group.skillbox.k4")?.object(forKey: "DATE_KEY") as? Date ?? Date()
     }
 }
 
