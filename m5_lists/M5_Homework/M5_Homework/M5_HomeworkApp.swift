@@ -4,7 +4,7 @@ import SwiftUI
 struct M5_HomeworkApp: App {
     var body: some Scene {
         WindowGroup {
-            StackView()
+            TabBar(router: TabBarRouter())
         }
     }
 }

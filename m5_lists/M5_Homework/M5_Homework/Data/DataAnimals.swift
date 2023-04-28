@@ -1,10 +1,7 @@
 import SwiftUI
 
-/// реализуйте протокол Identifiable
-/// для работы с линивой загрузкой
-/// добавте для генерация уникального id
-/// свойтсво let id = UUID()
-struct Breed {
+struct Breed: Identifiable {
+    let id = UUID()
     let name: String
     let url: String
 }

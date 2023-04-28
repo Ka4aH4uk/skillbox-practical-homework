@@ -44,6 +44,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02C6117B29FC0E610084D1D5 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				02C6117529FC0D8D0084D1D5 /* TabBarRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		02C6117C29FC0E740084D1D5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				94AFC8572896B79D00464D91 /* StackView.swift */,
+				02C6117929FC0DE80084D1D5 /* GridView.swift */,
+				02C6117729FC0DD40084D1D5 /* ListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		02C6117D29FC12EA0084D1D5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				94AFC8552896B6E800464D91 /* DataAnimals.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		02C6117E29FC82790084D1D5 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				02C6117329FC0D160084D1D5 /* TabBar.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		94AFC8392896889600464D91 = {
 			isa = PBXGroup;
 			children = (
@@ -64,13 +98,11 @@
 			isa = PBXGroup;
 			children = (
 				94AFC8452896889600464D91 /* M5_HomeworkApp.swift */,
-				02C6117329FC0D160084D1D5 /* TabBar.swift */,
-				94AFC8572896B79D00464D91 /* StackView.swift */,
-				02C6117929FC0DE80084D1D5 /* GridView.swift */,
-				02C6117729FC0DD40084D1D5 /* ListView.swift */,
+				02C6117E29FC82790084D1D5 /* TabBar */,
+				02C6117C29FC0E740084D1D5 /* Views */,
+				02C6117D29FC12EA0084D1D5 /* Data */,
+				02C6117B29FC0E610084D1D5 /* Router */,
 				94AFC853289688B300464D91 /* AsyncImage.swift */,
-				94AFC8552896B6E800464D91 /* DataAnimals.swift */,
-				02C6117529FC0D8D0084D1D5 /* TabBarRouter.swift */,
 				94AFC8492896889800464D91 /* Assets.xcassets */,
 				94AFC84B2896889800464D91 /* Preview Content */,
 			);

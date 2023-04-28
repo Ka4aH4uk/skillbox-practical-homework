@@ -23,7 +23,6 @@ struct TabBar: View {
                 }
                 .tag(TabSelection.list)
         }
-//        .accentColor(.green)
         .environmentObject(router)
     }
 }
