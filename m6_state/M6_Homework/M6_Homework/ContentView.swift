@@ -4,7 +4,7 @@ struct ContentView: View {
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
-        Text("Hello, world!")
+        Text("Hello")
             .padding()
     }
 }
