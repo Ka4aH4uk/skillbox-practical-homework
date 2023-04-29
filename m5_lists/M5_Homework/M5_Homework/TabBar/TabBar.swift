@@ -22,6 +22,12 @@ struct TabBar: View {
                     Label("List", systemImage: "list.bullet")
                 }
                 .tag(TabSelection.list)
+            
+            ListNew()
+                .tabItem {
+                    Label("New List", systemImage: "list.bullet.indent")
+                }
+                .tag(TabSelection.new)
         }
         .environmentObject(router)
     }

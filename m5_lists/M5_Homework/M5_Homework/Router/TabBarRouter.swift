@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum TabSelection: Int {
-    case stack, grid, list
+    case stack, grid, list, new
 }
 
 final class TabBarRouter: ObservableObject {

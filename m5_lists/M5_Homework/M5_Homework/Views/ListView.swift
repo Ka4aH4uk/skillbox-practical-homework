@@ -5,14 +5,17 @@ struct ListView: View {
     let dataAnimals = DataAnimals()
 
     var body: some View {
-        List {
-            ForEach(dataAnimals.animals) { animal in
-                DisclosureGroup(animal.name) {
-                    ForEach(animal.breeds, id: \.id) { breed in
-                        AnimalRow(breed: breed)
+        NavigationView {
+            List {
+                ForEach(dataAnimals.animals) { animal in
+                    DisclosureGroup(animal.name) {
+                        ForEach(animal.breeds, id: \.id) { breed in
+                            AnimalRow(breed: breed)
+                        }
                     }
                 }
             }
+            .navigationTitle("List")
         }
     }
 }
@@ -21,7 +24,7 @@ struct AnimalRow: View {
     let breed: Breed
 
     var body: some View {
-        HStack {
+        LazyHStack {
             AsyncImage(url: URL(string: breed.url), placeholder: {
                 ProgressView()
             })
