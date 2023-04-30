@@ -2,7 +2,8 @@ import Foundation
 
 final class ViewModel: ObservableObject {
     let service: UnstableNetworkService
-    
+    @Published var animals: [Animal] = []
+
     init(service: UnstableNetworkService) {
         self.service = service
         
@@ -13,3 +14,4 @@ final class ViewModel: ObservableObject {
         }
     }
 }
+        
