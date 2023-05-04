@@ -4,7 +4,7 @@ import SwiftUI
 struct InteractiveAnimationApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LockScreenView()
         }
     }
 }
