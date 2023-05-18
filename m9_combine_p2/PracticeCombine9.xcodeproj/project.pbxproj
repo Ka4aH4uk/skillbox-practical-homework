@@ -14,7 +14,6 @@
 		3082117E28A3C4E600C3A64E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3082117D28A3C4E600C3A64E /* Assets.xcassets */; };
 		3082118128A3C4E600C3A64E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3082117F28A3C4E600C3A64E /* LaunchScreen.storyboard */; };
 		3082118A28A400F800C3A64E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3082118928A400F800C3A64E /* SearchViewController.swift */; };
-		3082118E28A403A000C3A64E /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3082118D28A403A000C3A64E /* SearchViewControllerDelegate.swift */; };
 		3082119728A4208700C3A64E /* ImagesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3082119628A4208700C3A64E /* ImagesInfo.swift */; };
 		3082119D28A42D3E00C3A64E /* SearchViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3082119C28A42D3E00C3A64E /* SearchViewControllerCell.swift */; };
 		308211A128A5728200C3A64E /* FiltersUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308211A028A5728200C3A64E /* FiltersUtils.swift */; };
@@ -31,7 +30,6 @@
 		3082118028A3C4E600C3A64E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3082118228A3C4E600C3A64E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3082118928A400F800C3A64E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		3082118D28A403A000C3A64E /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3082119628A4208700C3A64E /* ImagesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesInfo.swift; sourceTree = "<group>"; };
 		3082119C28A42D3E00C3A64E /* SearchViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControllerCell.swift; sourceTree = "<group>"; };
 		308211A028A5728200C3A64E /* FiltersUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersUtils.swift; sourceTree = "<group>"; };
@@ -96,7 +94,6 @@
 			children = (
 				3082118928A400F800C3A64E /* SearchViewController.swift */,
 				3082119C28A42D3E00C3A64E /* SearchViewControllerCell.swift */,
-				3082118D28A403A000C3A64E /* SearchViewControllerDelegate.swift */,
 			);
 			path = SearchViewController;
 			sourceTree = "<group>";
@@ -179,7 +176,6 @@
 				3082118A28A400F800C3A64E /* SearchViewController.swift in Sources */,
 				3082117728A3C4DD00C3A64E /* SceneDelegate.swift in Sources */,
 				3082119728A4208700C3A64E /* ImagesInfo.swift in Sources */,
-				3082118E28A403A000C3A64E /* SearchViewControllerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

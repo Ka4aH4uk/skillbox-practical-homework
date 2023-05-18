@@ -6,18 +6,30 @@
 //
 
 import UIKit
+import Combine
 
 class MainViewController: UIViewController {
-
+    
     @IBOutlet weak var imageView: UIImageView!
     
     private var originalImage: UIImage? = nil
+    
+    private var selectedImagePublisher: AnyPublisher<UIImage, Never>?
+    private var cancellable = Set<AnyCancellable>()
 
     @IBAction func searchImageButtonPressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let searchController = storyboard.instantiateViewController(withIdentifier: "searchControllerID") as! SearchViewController
-        searchController.delegate = self
-        self.present(searchController, animated: true, completion: nil)
+        
+        searchController.didSelectImagePublisher
+            .sink { [weak self] image in
+                self?.didSelectImage(image)
+            }
+            .store(in: &cancellable)
+        
+        selectedImagePublisher = searchController.didSelectImagePublisher
+        
+        self.present(searchController, animated: true)
     }
     
     @IBAction func filterItButtonPressed(_ sender: Any) {
@@ -35,13 +47,8 @@ class MainViewController: UIViewController {
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-}
-
-extension MainViewController: SearchViewControllerDelegate {
-     
-    func didSelectImage(_ image: UIImage) {
+    private func didSelectImage(_ image: UIImage) {
         self.originalImage = image
         self.imageView.image = image
     }
 }
-

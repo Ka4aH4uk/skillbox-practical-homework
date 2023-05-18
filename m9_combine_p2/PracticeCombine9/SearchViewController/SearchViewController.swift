@@ -15,14 +15,18 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicatorVIew: UIActivityIndicatorView!
     
-    private var searchTimer: Timer? = nil
+    private let didSelectImageSubject = PassthroughSubject<UIImage, Never>()
     
+    var didSelectImagePublisher: AnyPublisher<UIImage, Never> {
+        return didSelectImageSubject.eraseToAnyPublisher()
+    }
+    
+    private var cancellable = Set<AnyCancellable>()
+
     private var images: [UIImage] = []
     
     private let itemsOnRow: CGFloat = 2
     private let sectionInsets = UIEdgeInsets(top: 24.0, left: 24.0, bottom: 24.0, right: 24.0)
-    
-    var delegate: SearchViewControllerDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,16 +41,14 @@ class SearchViewController: UIViewController {
     }
     
     private func addObserverForTextField() {
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification,
-                                               object: self.textField,
-                                               queue: .main) { [weak self] notification in
-            // Задержка на 1 секунду после ввода, чтобы не запрашивать данные после ввода каждого символа
-            self?.searchTimer?.invalidate()
-            self?.searchTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-                self?.searchImages(by: (notification.object as? UITextField)?.text ?? "")
-                self?.searchTimer = nil
+        NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: self.textField)
+            .compactMap { ($0.object as? UITextField)?.text }
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] text in
+                self?.searchImages(by: text)
             }
-        }
+            .store(in: &cancellable)
     }
     
     private func searchImages(by text: String) {
@@ -54,27 +56,32 @@ class SearchViewController: UIViewController {
         self.collectionView.isHidden = true
         self.activityIndicatorVIew.isHidden = false
         
-        loadImages(by: text) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let images):
-                    self?.images = images
-                    self?.collectionView.reloadData()
-                    self?.collectionView.isHidden = false
+        loadImages(by: text)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
                 case .failure(let error):
-                    let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Ошибка", message: "\(error)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel))
                     self?.present(alert, animated: true, completion: nil)
+                case .finished:
+                    break
                 }
                 self?.activityIndicatorVIew.isHidden = true
+            } receiveValue: { [weak self] images in
+                self?.images = images
+                self?.collectionView.reloadData()
+                self?.collectionView.isHidden = false
             }
-        }
+            .store(in: &cancellable)
     }
     
+    private func didSelectImage(_ image: UIImage) {
+        didSelectImageSubject.send(image)
+    }
 }
 
 extension SearchViewController: UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.images.count
     }
@@ -88,7 +95,6 @@ extension SearchViewController: UICollectionViewDataSource {
 }
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let paddingSpace = sectionInsets.left * (itemsOnRow + 1)
         let availableWidth = collectionView.frame.width - paddingSpace
@@ -101,16 +107,15 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-      return sectionInsets.left
+        return sectionInsets.left
     }
 }
 
 extension SearchViewController: UICollectionViewDelegate {
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard indexPath.row < self.images.count else {
             return
         }
-        self.delegate?.didSelectImage(self.images[indexPath.row])
+        self.didSelectImage(self.images[indexPath.row])
     }
 }
