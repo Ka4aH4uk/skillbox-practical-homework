@@ -43,7 +43,7 @@ class SearchViewController: UIViewController {
     private func addObserverForTextField() {
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: self.textField)
             .compactMap { ($0.object as? UITextField)?.text }
-            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink { [weak self] text in
                 self?.searchImages(by: text)
