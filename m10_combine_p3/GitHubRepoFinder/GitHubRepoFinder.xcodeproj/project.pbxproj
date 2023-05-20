@@ -11,6 +11,7 @@
 		02B102632A18FBCC008F7F3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B102622A18FBCC008F7F3A /* ContentView.swift */; };
 		02B102652A18FBCF008F7F3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02B102642A18FBCF008F7F3A /* Assets.xcassets */; };
 		02B102682A18FBCF008F7F3A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02B102672A18FBCF008F7F3A /* Preview Assets.xcassets */; };
+		02B1026F2A18FC30008F7F3A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1026E2A18FC30008F7F3A /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		02B102622A18FBCC008F7F3A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		02B102642A18FBCF008F7F3A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02B102672A18FBCF008F7F3A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		02B1026E2A18FC30008F7F3A /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				02B102602A18FBCC008F7F3A /* GitHubRepoFinderApp.swift */,
+				02B102702A18FC3F008F7F3A /* Model */,
 				02B102622A18FBCC008F7F3A /* ContentView.swift */,
 				02B102642A18FBCF008F7F3A /* Assets.xcassets */,
 				02B102662A18FBCF008F7F3A /* Preview Content */,
@@ -65,6 +68,14 @@
 				02B102672A18FBCF008F7F3A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		02B102702A18FC3F008F7F3A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				02B1026E2A18FC30008F7F3A /* Model.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B1026F2A18FC30008F7F3A /* Model.swift in Sources */,
 				02B102632A18FBCC008F7F3A /* ContentView.swift in Sources */,
 				02B102612A18FBCC008F7F3A /* GitHubRepoFinderApp.swift in Sources */,
 			);
