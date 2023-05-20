@@ -7,35 +7,30 @@ struct GitHubRepoSearchView: View {
 
     var body: some View {
         NavigationView {
-            ZStack {
-                Color.black
-                    .ignoresSafeArea()
-                VStack {
-                    TextField("Enter company", text: $repoViewModel.searchText)
-                        .padding(.horizontal, 40)
-                        .frame(height: 45, alignment: .center)
-                        .background(Color(#colorLiteral(red: 0.9294475317, green: 0.9239223003, blue: 0.9336946607, alpha: 1)))
-                        .foregroundColor(Color.black)
-                        .clipped()
-                        .cornerRadius(10)
-                        .overlay(
-                            HStack {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.gray)
-                                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, 16)
-                            }
-                        )
-                    Spacer()
-                }
-                .padding()
+            VStack {
+                TextField("", text: $repoViewModel.searchText)
+                    .padding(.horizontal, 40)
+                    .frame(height: 45, alignment: .center)
+                    .background(Color(#colorLiteral(red: 0.9294475317, green: 0.9239223003, blue: 0.9336946607, alpha: 1)))
+                    .foregroundColor(.black)
+                    .accentColor(.black)
+                    .clipped()
+                    .cornerRadius(10)
+                    .overlay(
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.gray)
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 15)
+                        }
+                    )
                 
                 if repoViewModel.repoAndBranch.count > 0 {
                     List(repoViewModel.repoAndBranch, id: \.repository.name) { repoAndBranch in
                         Section(header: HStack {
                             Text(repoAndBranch.repository.name)
                                 .font(.headline)
-                            Text(repoAndBranch.repository.language ?? "")
+                            Text("[\(repoAndBranch.repository.language ?? "")]")
                                 .font(.subheadline)
                         }) {
                             ForEach(repoAndBranch.branches, id: \.name) { branch in
@@ -57,12 +52,14 @@ struct GitHubRepoSearchView: View {
                 }
             }
         }
+        .padding()
         .navigationBarTitle("Поиск", displayMode: .large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     dismiss()
+                    repoViewModel.searchText = ""
                 } label: {
                     HStack {
                         Image(systemName: "chevron.backward")
@@ -77,6 +74,7 @@ struct GitHubRepoSearchView: View {
 struct ActivityIndicator: UIViewRepresentable {
     func makeUIView(context: Context) -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = UIColor.white
         activityIndicator.startAnimating()
         return activityIndicator
     }
@@ -86,6 +84,8 @@ struct ActivityIndicator: UIViewRepresentable {
 
 struct GitHubRepoSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        GitHubRepoSearchView(showSearchView: .constant(true))
+        NavigationView {
+            GitHubRepoSearchView(showSearchView: .constant(true))
+        }
     }
 }

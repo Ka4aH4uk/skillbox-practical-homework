@@ -1,17 +1,11 @@
 import SwiftUI
 
-//extension Color {
-//    static var dark: Color {
-//        return Color("Dark")
-//    }
-//}
-
 extension GitHubRepoLauncScreenView {
     var gitImage: some View {
         Image("github")
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.width / 2)
+            .frame(width: UIScreen.main.bounds.width / 2.5, height: UIScreen.main.bounds.width / 2.5)
     }
 }
 

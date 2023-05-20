@@ -11,7 +11,7 @@ final class RepoViewModel: ObservableObject {
     
     init() {
         $searchText
-            .debounce(for: .seconds(1), scheduler: RunLoop.main)
+            .debounce(for: .seconds(2), scheduler: RunLoop.main)
             .removeDuplicates()
             .map({ (string) -> String? in
                 if string.count < 1 {
