@@ -2,8 +2,8 @@ import SwiftUI
 
 struct GitHubRepoSearchView: View {
     @Binding var showSearchView: Bool
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject private var viewModel = RepoViewModel()
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationView {
@@ -42,6 +42,9 @@ struct GitHubRepoSearchView: View {
                     }
                     Spacer()
                 }
+            }
+            .alert(item: $viewModel.errorItem) { errorItem in
+                Alert(title: Text("Error"), message: Text(errorItem.error), dismissButton: .default(Text("OK")))
             }
         }
         .padding()
