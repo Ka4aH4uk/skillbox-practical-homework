@@ -9,21 +9,35 @@ struct ContentView: View {
     let loginService = LoginService()
     
     var body: some View {
-        TextField("", text: $login, prompt: Text("enter login"))
+        HStack {
+            Image(systemName: "person")
+            TextField("", text: $login, prompt: Text("Enter login"))
                 .frame(width: 200)
+                .textFieldStyle(.roundedBorder)
                 .padding()
-        TextField("", text: $password, prompt: Text("enter password"))
+        }
+        HStack {
+            Image(systemName: "key")
+            TextField("", text: $password, prompt: Text("Enter password"))
                 .frame(width: 200)
+                .textFieldStyle(.roundedBorder)
                 .padding()
-        TextField("", text: $password2, prompt: Text("repeat password"))
+        }
+        HStack {
+            Image(systemName: "key.fill")
+            TextField("", text: $password2, prompt: Text("Repeat password"))
                 .frame(width: 200)
+                .textFieldStyle(.roundedBorder)
                 .padding()
+        }
+        
         if message.isEmpty {
-            Text(" ").padding()
+            Text("").padding()
         } else {
             Text(message).padding()
         }
         Button("Register", action: register)
+            .buttonStyle(.bordered)
     }
     
     func register() {
