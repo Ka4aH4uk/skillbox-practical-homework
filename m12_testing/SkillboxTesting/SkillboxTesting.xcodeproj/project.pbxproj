@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02FABAFF2A2504D4005A71FC /* SkillboxTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FABAFE2A2504D4005A71FC /* SkillboxTestingTests.swift */; };
+		02FABAFF2A2504D4005A71FC /* LoginServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FABAFE2A2504D4005A71FC /* LoginServiceTests.swift */; };
 		02FABB0C2A2508D2005A71FC /* SkillboxTestingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FABB0B2A2508D2005A71FC /* SkillboxTestingUITests.swift */; };
 		02FABB0E2A2508D2005A71FC /* SkillboxTestingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FABB0D2A2508D2005A71FC /* SkillboxTestingUITestsLaunchTests.swift */; };
 		D4A8208128748EBE00995828 /* SkillboxTestingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8208028748EBE00995828 /* SkillboxTestingApp.swift */; };
@@ -36,7 +36,7 @@
 
 /* Begin PBXFileReference section */
 		02FABAFC2A2504D4005A71FC /* SkillboxTestingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkillboxTestingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		02FABAFE2A2504D4005A71FC /* SkillboxTestingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillboxTestingTests.swift; sourceTree = "<group>"; };
+		02FABAFE2A2504D4005A71FC /* LoginServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginServiceTests.swift; sourceTree = "<group>"; };
 		02FABB092A2508D2005A71FC /* SkillboxTestingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkillboxTestingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02FABB0B2A2508D2005A71FC /* SkillboxTestingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillboxTestingUITests.swift; sourceTree = "<group>"; };
 		02FABB0D2A2508D2005A71FC /* SkillboxTestingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillboxTestingUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 		02FABAFD2A2504D4005A71FC /* SkillboxTestingTests */ = {
 			isa = PBXGroup;
 			children = (
-				02FABAFE2A2504D4005A71FC /* SkillboxTestingTests.swift */,
+				02FABAFE2A2504D4005A71FC /* LoginServiceTests.swift */,
 			);
 			path = SkillboxTestingTests;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02FABAFF2A2504D4005A71FC /* SkillboxTestingTests.swift in Sources */,
+				02FABAFF2A2504D4005A71FC /* LoginServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

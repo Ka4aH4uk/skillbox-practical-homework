@@ -1,10 +1,3 @@
-//
-//  SkillboxTestingUITests.swift
-//  SkillboxTestingUITests
-//
-//  Created by Ka4aH on 29.05.2023.
-//
-
 import XCTest
 
 final class SkillboxTestingUITests: XCTestCase {
