@@ -15,6 +15,7 @@ struct ContentView: View {
                 .frame(width: 200)
                 .textFieldStyle(.roundedBorder)
                 .padding()
+                .accessibility(identifier: "loginTF")
         }
         HStack {
             Image(systemName: "key")
@@ -22,6 +23,7 @@ struct ContentView: View {
                 .frame(width: 200)
                 .textFieldStyle(.roundedBorder)
                 .padding()
+                .accessibility(identifier: "passwordTF")
         }
         HStack {
             Image(systemName: "key.fill")
@@ -29,15 +31,19 @@ struct ContentView: View {
                 .frame(width: 200)
                 .textFieldStyle(.roundedBorder)
                 .padding()
+                .accessibility(identifier: "2passwordTF")
         }
         
         if message.isEmpty {
             Text("").padding()
+//                .accessibility(identifier: "messageLabel")
         } else {
             Text(message).padding()
+                .accessibility(identifier: "messageLabel")
         }
         Button("Register", action: register)
             .buttonStyle(.bordered)
+            .accessibility(identifier: "buttonRegister")
     }
     
     func register() {

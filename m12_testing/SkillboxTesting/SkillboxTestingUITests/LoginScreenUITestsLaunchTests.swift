@@ -1,13 +1,6 @@
-//
-//  SkillboxTestingUITestsLaunchTests.swift
-//  SkillboxTestingUITests
-//
-//  Created by Ka4aH on 29.05.2023.
-//
-
 import XCTest
 
-final class SkillboxTestingUITestsLaunchTests: XCTestCase {
+final class LoginScreenUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

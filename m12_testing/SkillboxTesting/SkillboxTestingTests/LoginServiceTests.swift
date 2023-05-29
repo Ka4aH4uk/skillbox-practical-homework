@@ -15,7 +15,7 @@ final class LoginServiceTests: XCTestCase {
     /// {unit-of-work} _ {scenario} _ {expected-results-or-behaviour}
     func test_checkCredentials_ValidLogin_CorrectResult() {
         // Given
-        let validLogin = "test@google.com"
+        let validLogin = "1@gmail.com"
         let validPassword = "Qwerty12345"
         let validPassword2 = "Qwerty12345"
         
