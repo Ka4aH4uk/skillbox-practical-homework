@@ -36,7 +36,6 @@ struct ContentView: View {
         
         if message.isEmpty {
             Text("").padding()
-//                .accessibility(identifier: "messageLabel")
         } else {
             Text(message).padding()
                 .accessibility(identifier: "messageLabel")

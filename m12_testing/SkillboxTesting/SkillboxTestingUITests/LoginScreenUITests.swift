@@ -155,6 +155,7 @@ final class RegistrationScreenUITests: XCTestCase {
         let passwordTF = app.textFields["passwordTF"]
         let password2TF = app.textFields["2passwordTF"]
         let registerButton = app.buttons["buttonRegister"]
+        let label = app.staticTexts["messageLabel"] //
 
         // When
         loginTF.tap()
@@ -170,5 +171,6 @@ final class RegistrationScreenUITests: XCTestCase {
 
         // Then
         XCTAssertTrue(app.staticTexts["messageLabel"].exists)
+        XCTAssertEqual(label.label, "You are successfully registered!")
     }
 }
