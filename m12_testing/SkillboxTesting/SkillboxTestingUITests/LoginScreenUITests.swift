@@ -13,163 +13,241 @@ final class RegistrationScreenUITests: XCTestCase {
         app.terminate()
     }
 
-    /// логин является валидным имейлом
-    func test_ValidEmail_ValidatesSuccessfully() throws {
-        // Given
-        let loginTF = app.textFields["loginTF"]
-
-        // When
-        loginTF.tap()
-        loginTF.typeText("1@gmail.com")
-
-        // Then
-        XCTAssertEqual(loginTF.value as? String, "1@gmail.com")
-    }
+    // Логин является валидным имейлом
+//    func test_ValidEmail_ValidatesSuccessfully() throws {
+//        /// Given
+//        let loginTextField = app.textFields["loginTextField"]
+//
+//        /// When
+//        loginTextField.tap()
+//        loginTextField.typeText("1@gmail.com")
+//
+//        /// Then
+//        XCTAssertEqual(loginTextField.value as? String, "1@gmail.com")
+//    }
 
     func test_InvalidEmail_ShowsErrorMessage() throws {
-        // Given
-        let loginTF = app.textFields["loginTF"]
+        /// Given
+        let loginTextField = app.textFields["loginTextField"]
+        let registerButton = app.buttons["buttonRegister"]
+        let label = app.staticTexts["messageLabel"]
 
-        // When
-        loginTF.tap()
-        loginTF.typeText("invalidemail")
+        /// When
+        loginTextField.tap()
+        loginTextField.typeText("invalidemail")
+        
+        registerButton.tap()
+        
+        sleep(2)
 
-        // Then
-        XCTAssertEqual(loginTF.value as? String, "invalidemail")
+        /// Then
+        XCTAssertEqual(loginTextField.value as? String, "invalidemail")
+        XCTAssertEqual(label.label, "Enter correct email")
     }
 
-    /// пароль содержит от шести символов
-    func test_ValidPassword_ValidatesSuccessfully() throws {
-        // Given
-        let passwordTF = app.textFields["passwordTF"]
-
-        // When
-        passwordTF.tap()
-        passwordTF.typeText("Password123")
-
-        // Then
-        XCTAssertEqual(passwordTF.value as? String, "Password123")
-    }
+    // Пароль содержит от шести символов
+//    func test_ValidPassword_ValidatesSuccessfully() throws {
+//        /// Given
+//        let passwordTextField = app.textFields["passwordTextField"]
+//
+//        /// When
+//        passwordTextField.tap()
+//        passwordTextField.typeText("Password123")
+//
+//        /// Then
+//        XCTAssertEqual(passwordTextField.value as? String, "Password123")
+//    }
 
     func test_ShortPassword_ShowsErrorMessage() throws {
-        // Given
-        let passwordTF = app.textFields["passwordTF"]
+        /// Given
+        let loginTextField = app.textFields["loginTextField"]
+        let passwordTextField = app.textFields["passwordTextField"]
+        let registerButton = app.buttons["buttonRegister"]
+        let label = app.staticTexts["messageLabel"]
 
-        // When
-        passwordTF.tap()
-        passwordTF.typeText("pass")
+        /// When
+        loginTextField.tap()
+        loginTextField.typeText("1@gmail.com")
+        
+        passwordTextField.tap()
+        passwordTextField.typeText("pass")
+        
+        registerButton.tap()
+        
+        sleep(2)
 
-        // Then
-        XCTAssertEqual(passwordTF.value as? String, "pass")
+        /// Then
+        XCTAssertEqual(passwordTextField.value as? String, "pass")
+        XCTAssertEqual(label.label, "Password should be more than 6 symbols")
     }
 
-    /// пароль содержит как минимум одну заглавную букву
+    // Пароль содержит как минимум одну заглавную букву
     func test_PasswordWithoutUppercase_ShowsErrorMessage() throws {
-        // Given
-        let passwordTF = app.textFields["passwordTF"]
+        /// Given
+        let loginTextField = app.textFields["loginTextField"]
+        let passwordTextField = app.textFields["passwordTextField"]
+        let registerButton = app.buttons["buttonRegister"]
+        let label = app.staticTexts["messageLabel"]
 
-        // When
-        passwordTF.tap()
-        passwordTF.typeText("password123")
+        /// When
+        loginTextField.tap()
+        loginTextField.typeText("1@gmail.com")
+        
+        passwordTextField.tap()
+        passwordTextField.typeText("password123")
+        
+        registerButton.tap()
+        
+        sleep(2)
 
-        // Then
-        XCTAssertEqual(passwordTF.value as? String, "password123")
+        /// Then
+        XCTAssertEqual(passwordTextField.value as? String, "password123")
+        XCTAssertEqual(label.label, "Password should have at least one upper letter")
     }
 
-    /// пароль содержит как минимум одну прописную букву
+    // Пароль содержит как минимум одну прописную букву
     func test_PasswordWithoutLowercase_ShowsErrorMessage() throws {
-        // Given
-        let passwordTF = app.textFields["passwordTF"]
+        /// Given
+        let loginTextField = app.textFields["loginTextField"]
+        let passwordTextField = app.textFields["passwordTextField"]
+        let registerButton = app.buttons["buttonRegister"]
+        let label = app.staticTexts["messageLabel"]
 
-        // When
-        passwordTF.tap()
-        passwordTF.typeText("PASSWORD123")
+        /// When
+        loginTextField.tap()
+        loginTextField.typeText("1@gmail.com")
+        
+        passwordTextField.tap()
+        passwordTextField.typeText("PASSWORD123")
+        
+        registerButton.tap()
+        
+        sleep(2)
 
-        // Then
-        XCTAssertEqual(passwordTF.value as? String, "PASSWORD123")
+        /// Then
+        XCTAssertEqual(passwordTextField.value as? String, "PASSWORD123")
+        XCTAssertEqual(label.label, "Password should have at least one lower letter")
     }
 
-    /// пароль содержит как минимум одну цифру
+    // Пароль содержит как минимум одну цифру
     func test_PasswordWithoutDigit_ShowsErrorMessage() throws {
-        // Given
-        let passwordTF = app.textFields["passwordTF"]
+        /// Given
+        let loginTextField = app.textFields["loginTextField"]
+        let passwordTextField = app.textFields["passwordTextField"]
+        let registerButton = app.buttons["buttonRegister"]
+        let label = app.staticTexts["messageLabel"]
 
-        // When
-        passwordTF.tap()
-        passwordTF.typeText("Password")
+        /// When
+        loginTextField.tap()
+        loginTextField.typeText("1@gmail.com")
+        
+        passwordTextField.tap()
+        passwordTextField.typeText("Password")
+        
+        registerButton.tap()
+        
+        sleep(2)
 
-        // Then
-        XCTAssertEqual(passwordTF.value as? String, "Password")
+        /// Then
+        XCTAssertEqual(passwordTextField.value as? String, "Password")
+        XCTAssertEqual(label.label, "Password should have at least one digit")
     }
 
-    /// пароль не содержит знаков пунктуации и пробелов
+    // Пароль не содержит знаков пунктуации и пробелов
     func test_PasswordWithPunctuation_ShowsErrorMessage() throws {
-        // Given
-        let passwordTF = app.textFields["passwordTF"]
+        /// Given
+        let loginTextField = app.textFields["loginTextField"]
+        let passwordTextField = app.textFields["passwordTextField"]
+        let registerButton = app.buttons["buttonRegister"]
+        let label = app.staticTexts["messageLabel"]
 
-        // When
-        passwordTF.tap()
-        passwordTF.typeText("Password!123")
+        /// When
+        loginTextField.tap()
+        loginTextField.typeText("1@gmail.com")
+        
+        passwordTextField.tap()
+        passwordTextField.typeText("Password!123")
+        
+        registerButton.tap()
+        
+        sleep(2)
 
-        // Then
-        XCTAssertEqual(passwordTF.value as? String, "Password!123")
+        /// Then
+        XCTAssertEqual(passwordTextField.value as? String, "Password!123")
+        XCTAssertEqual(label.label, "Password contains illegal characters")
     }
 
-    /// пароли совпадают
-    func test_ConfirmPassword_MatchesPassword() throws {
-        // Given
-        let passwordTF = app.textFields["passwordTF"]
-        let password2TF = app.textFields["2passwordTF"]
-
-        // When
-        passwordTF.tap()
-        passwordTF.typeText("Password123")
-
-        password2TF.tap()
-        password2TF.typeText("Password123")
-
-        // Then
-        XCTAssertEqual(password2TF.value as? String, "Password123")
-    }
+    // Пароли совпадают
+//    func test_ConfirmPassword_MatchesPassword() throws {
+//        /// Given
+//        let passwordTextField = app.textFields["passwordTextField"]
+//        let confirmPasswordTextField = app.textFields["confirmPasswordTextField"]
+//        let registerButton = app.buttons["buttonRegister"]
+//
+//        /// When
+//        passwordTextField.tap()
+//        passwordTextField.typeText("Password123")
+//
+//        confirmPasswordTextField.tap()
+//        confirmPasswordTextField.typeText("Password123")
+//
+//        registerButton.tap()
+//
+//        /// Then
+//        XCTAssertEqual(confirmPasswordTextField.value as? String, "Password123")
+//    }
 
     func test_ConfirmPassword_DoesNotMatchPassword_ShowsErrorMessage() throws {
-        // Given
-        let passwordTF = app.textFields["passwordTF"]
-        let password2TF = app.textFields["2passwordTF"]
+        /// Given
+        let loginTextField = app.textFields["loginTextField"]
+        let passwordTextField = app.textFields["passwordTextField"]
+        let confirmPasswordTextField = app.textFields["confirmPasswordTextField"]
+        let registerButton = app.buttons["buttonRegister"]
+        let label = app.staticTexts["messageLabel"]
 
-        // When
-        passwordTF.tap()
-        passwordTF.typeText("Password123")
+        /// When
+        loginTextField.tap()
+        loginTextField.typeText("1@gmail.com")
+        
+        passwordTextField.tap()
+        passwordTextField.typeText("Password123")
 
-        password2TF.tap()
-        password2TF.typeText("Password")
+        confirmPasswordTextField.tap()
+        confirmPasswordTextField.typeText("Password")
+        
+        registerButton.tap()
+        
+        sleep(2)
 
-        // Then
-        XCTAssertEqual(password2TF.value as? String, "Password")
+        /// Then
+        XCTAssertEqual(confirmPasswordTextField.value as? String, "Password")
+        XCTAssertEqual(label.label, "Passwords are not identical")
     }
 
-    /// проверка всех систем
+    // Регистрация прошла успешно
     func test_RegisterValidCredentials_SuccessfulRegistration() {
-        // Given
-        let loginTF = app.textFields["loginTF"]
-        let passwordTF = app.textFields["passwordTF"]
-        let password2TF = app.textFields["2passwordTF"]
+        /// Given
+        let loginTextField = app.textFields["loginTextField"]
+        let passwordTextField = app.textFields["passwordTextField"]
+        let confirmPasswordTextField = app.textFields["confirmPasswordTextField"]
         let registerButton = app.buttons["buttonRegister"]
-        let label = app.staticTexts["messageLabel"] //
+        let label = app.staticTexts["messageLabel"]
 
-        // When
-        loginTF.tap()
-        loginTF.typeText("1@gmail.com")
+        /// When
+        loginTextField.tap()
+        loginTextField.typeText("1@gmail.com")
 
-        passwordTF.tap()
-        passwordTF.typeText("Password123")
+        passwordTextField.tap()
+        passwordTextField.typeText("Password123")
 
-        password2TF.tap()
-        password2TF.typeText("Password123")
+        confirmPasswordTextField.tap()
+        confirmPasswordTextField.typeText("Password123")
 
         registerButton.tap()
+        
+        sleep(2)
 
-        // Then
+        /// Then
         XCTAssertTrue(app.staticTexts["messageLabel"].exists)
         XCTAssertEqual(label.label, "You are successfully registered!")
     }

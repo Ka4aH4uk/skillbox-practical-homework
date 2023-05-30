@@ -37,7 +37,12 @@ final class LoginService {
             return .passwordNotUppercased
         }
         
-        guard password.rangeOfCharacter(from: .illegalCharacters) == nil else {
+        /// Проверка наличия запрещенных символов в пароле
+        let punctuationCharacterSet = CharacterSet.punctuationCharacters
+        let whitespaceCharacterSet = CharacterSet.whitespaces
+        let illegalCharacterSet = punctuationCharacterSet.union(whitespaceCharacterSet)
+        
+        guard password.rangeOfCharacter(from: illegalCharacterSet) == nil else {
             return .passwordHasIllegalCharacters
         }
         

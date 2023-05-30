@@ -15,7 +15,7 @@ struct ContentView: View {
                 .frame(width: 200)
                 .textFieldStyle(.roundedBorder)
                 .padding()
-                .accessibility(identifier: "loginTF")
+                .accessibility(identifier: "loginTextField")
         }
         HStack {
             Image(systemName: "key")
@@ -23,7 +23,7 @@ struct ContentView: View {
                 .frame(width: 200)
                 .textFieldStyle(.roundedBorder)
                 .padding()
-                .accessibility(identifier: "passwordTF")
+                .accessibility(identifier: "passwordTextField")
         }
         HStack {
             Image(systemName: "key.fill")
@@ -31,7 +31,7 @@ struct ContentView: View {
                 .frame(width: 200)
                 .textFieldStyle(.roundedBorder)
                 .padding()
-                .accessibility(identifier: "2passwordTF")
+                .accessibility(identifier: "confirmPasswordTextField")
         }
         
         if message.isEmpty {

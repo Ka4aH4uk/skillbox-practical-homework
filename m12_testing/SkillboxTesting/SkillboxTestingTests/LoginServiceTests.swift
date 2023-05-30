@@ -12,14 +12,13 @@ final class LoginServiceTests: XCTestCase {
         loginService = nil
     }
     
-    /// {unit-of-work} _ {scenario} _ {expected-results-or-behaviour}
     func test_checkCredentials_ValidLogin_CorrectResult() {
-        // Given
+        /// Given
         let validLogin = "1@gmail.com"
         let validPassword = "Qwerty12345"
         let validPassword2 = "Qwerty12345"
         
-        // When
+        /// When
         let result = loginService.checkCredentials(login: validLogin, password: validPassword, password2: validPassword2)
         
         // Then
@@ -27,15 +26,15 @@ final class LoginServiceTests: XCTestCase {
     }
 
     func test_checkCredentials_InvalidLogin_InvalidLoginResult() {
-        // Given
+        /// Given
         let invalidLogin = "invalidemail"
         let validPassword = "Qwerty12345"
         let validPassword2 = "Qwerty12345"
         
-        // When
+        /// When
         let result = loginService.checkCredentials(login: invalidLogin, password: validPassword, password2: validPassword2)
         
-        // Then
+        /// Then
         XCTAssertEqual(result, .invalidLogin)
     }
 }
