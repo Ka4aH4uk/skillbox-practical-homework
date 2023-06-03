@@ -14,18 +14,6 @@ final class RegistrationScreenUITests: XCTestCase {
     }
 
     // Логин является валидным имейлом
-//    func test_ValidEmail_ValidatesSuccessfully() throws {
-//        /// Given
-//        let loginTextField = app.textFields["loginTextField"]
-//
-//        /// When
-//        loginTextField.tap()
-//        loginTextField.typeText("1@gmail.com")
-//
-//        /// Then
-//        XCTAssertEqual(loginTextField.value as? String, "1@gmail.com")
-//    }
-
     func test_InvalidEmail_ShowsErrorMessage() throws {
         /// Given
         let loginTextField = app.textFields["loginTextField"]
@@ -38,7 +26,7 @@ final class RegistrationScreenUITests: XCTestCase {
         
         registerButton.tap()
         
-        sleep(2)
+        XCTAssertTrue(label.waitForExistence(timeout: 2))
 
         /// Then
         XCTAssertEqual(loginTextField.value as? String, "invalidemail")
@@ -46,18 +34,6 @@ final class RegistrationScreenUITests: XCTestCase {
     }
 
     // Пароль содержит от шести символов
-//    func test_ValidPassword_ValidatesSuccessfully() throws {
-//        /// Given
-//        let passwordTextField = app.textFields["passwordTextField"]
-//
-//        /// When
-//        passwordTextField.tap()
-//        passwordTextField.typeText("Password123")
-//
-//        /// Then
-//        XCTAssertEqual(passwordTextField.value as? String, "Password123")
-//    }
-
     func test_ShortPassword_ShowsErrorMessage() throws {
         /// Given
         let loginTextField = app.textFields["loginTextField"]
@@ -74,7 +50,7 @@ final class RegistrationScreenUITests: XCTestCase {
         
         registerButton.tap()
         
-        sleep(2)
+        XCTAssertTrue(label.waitForExistence(timeout: 2))
 
         /// Then
         XCTAssertEqual(passwordTextField.value as? String, "pass")
@@ -98,7 +74,7 @@ final class RegistrationScreenUITests: XCTestCase {
         
         registerButton.tap()
         
-        sleep(2)
+        XCTAssertTrue(label.waitForExistence(timeout: 2))
 
         /// Then
         XCTAssertEqual(passwordTextField.value as? String, "password123")
@@ -122,7 +98,7 @@ final class RegistrationScreenUITests: XCTestCase {
         
         registerButton.tap()
         
-        sleep(2)
+        XCTAssertTrue(label.waitForExistence(timeout: 2))
 
         /// Then
         XCTAssertEqual(passwordTextField.value as? String, "PASSWORD123")
@@ -146,7 +122,7 @@ final class RegistrationScreenUITests: XCTestCase {
         
         registerButton.tap()
         
-        sleep(2)
+        XCTAssertTrue(label.waitForExistence(timeout: 2))
 
         /// Then
         XCTAssertEqual(passwordTextField.value as? String, "Password")
@@ -170,7 +146,7 @@ final class RegistrationScreenUITests: XCTestCase {
         
         registerButton.tap()
         
-        sleep(2)
+        XCTAssertTrue(label.waitForExistence(timeout: 2))
 
         /// Then
         XCTAssertEqual(passwordTextField.value as? String, "Password!123")
@@ -178,25 +154,6 @@ final class RegistrationScreenUITests: XCTestCase {
     }
 
     // Пароли совпадают
-//    func test_ConfirmPassword_MatchesPassword() throws {
-//        /// Given
-//        let passwordTextField = app.textFields["passwordTextField"]
-//        let confirmPasswordTextField = app.textFields["confirmPasswordTextField"]
-//        let registerButton = app.buttons["buttonRegister"]
-//
-//        /// When
-//        passwordTextField.tap()
-//        passwordTextField.typeText("Password123")
-//
-//        confirmPasswordTextField.tap()
-//        confirmPasswordTextField.typeText("Password123")
-//
-//        registerButton.tap()
-//
-//        /// Then
-//        XCTAssertEqual(confirmPasswordTextField.value as? String, "Password123")
-//    }
-
     func test_ConfirmPassword_DoesNotMatchPassword_ShowsErrorMessage() throws {
         /// Given
         let loginTextField = app.textFields["loginTextField"]
@@ -217,7 +174,7 @@ final class RegistrationScreenUITests: XCTestCase {
         
         registerButton.tap()
         
-        sleep(2)
+        XCTAssertTrue(label.waitForExistence(timeout: 2))
 
         /// Then
         XCTAssertEqual(confirmPasswordTextField.value as? String, "Password")
@@ -245,7 +202,7 @@ final class RegistrationScreenUITests: XCTestCase {
 
         registerButton.tap()
         
-        sleep(2)
+        XCTAssertTrue(label.waitForExistence(timeout: 2))
 
         /// Then
         XCTAssertTrue(app.staticTexts["messageLabel"].exists)
