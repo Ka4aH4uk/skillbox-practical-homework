@@ -8,9 +8,12 @@ class RandomNumWithTimerCombine: UIViewController {
     private var randomNumber = Int.random(in: 1...100)
     private var isGameFinished = false
     private var startTime: Date?
-    private var timerCancellable: AnyCancellable?
-    private var cancellables: Set<AnyCancellable> = []
-    
+    private var timerSubscription: AnyCancellable?
+    private var currentElapsedTime: Int = 0
+
+    private let timerSubject = CurrentValueSubject<Int?, Never>(nil)
+
+    // UI-элементы
     private lazy var numberTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
@@ -26,6 +29,7 @@ class RandomNumWithTimerCombine: UIViewController {
         textField.layer.shadowOpacity = 0.5
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 2.0
+        textField.delegate = self
         return textField
     }()
     
@@ -64,31 +68,46 @@ class RandomNumWithTimerCombine: UIViewController {
         restartButton.layer.cornerRadius = restartButton.bounds.width / 2.0
     }
     
+    // Объявляем Publisher
+    private lazy var numberPublisher = numberTextField.publisher(for: \.text)
+        .compactMap { $0 }
+        .map { Int($0) }
+        .eraseToAnyPublisher()
+
+    private var cancellables = Set<AnyCancellable>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
-        
-        numberTextField.delegate = self
-        
+
         // Подписываемся на изменение текста в TextField
-        numberTextField.publisher(for: \.text)
-            .compactMap { $0 }
-            .map { Int($0) }
+        numberPublisher
             .sink { [weak self] number in
                 guard let self = self, let number = number, !self.isGameFinished else { return }
-                self.updateTimerLabel()
                 self.checkNumber(number)
             }
             .store(in: &cancellables)
+
+        // Создаем Timer.publish и связываем его с UILabel
+        Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .map { _ in
+                self.currentElapsedTime += 1
+                return self.currentElapsedTime
+            }
+            .sink { value in
+                self.timerSubject.send(value)
+            }
+            .store(in: &cancellables)
     }
-    
+
     // Обработка угаданного числа
     private func checkNumber(_ number: Int) {
         if number == randomNumber {
             isGameFinished = true
-            timerCancellable?.cancel()
-            timerCancellable = nil
+            timerSubscription?.cancel()
+            timerSubscription = nil
             showResult(isTimeUp: false)
         } else if number < randomNumber {
             pointLabel.text = "Загаданное число больше"
@@ -96,68 +115,62 @@ class RandomNumWithTimerCombine: UIViewController {
             pointLabel.text = "Загаданное число меньше"
         }
     }
-    
-    @objc private func startNewGame() {
+
+    private func resetGame() {
         // Сброс значений
         randomNumber = Int.random(in: numberRange)
         restartButton.setTitle("СБРОС", for: .normal)
         isGameFinished = false
         pointLabel.text = nil
+        timerLabel.text = nil
         numberTextField.isHidden = false
-        numberTextField.text = ""
+        numberTextField.text = nil
+        currentElapsedTime = 0
         startTime = Date()
-        
+    }
+    
+    @objc private func startNewGame() {
+        resetGame()
+
         // Отменяем предыдущий таймер и создаем новый
-        timerCancellable?.cancel()
-        timerCancellable = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-            .sink { [weak self] _ in
+        timerSubscription?.cancel()
+        timerSubscription = Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink(receiveValue: { [weak self] _ in
                 guard let self = self, let startTime = self.startTime else { return }
                 let elapsedTime = Int(Date().timeIntervalSince(startTime))
                 let secondsLeft = 60 - elapsedTime
                 if secondsLeft > 0 {
                     self.timerLabel.text = String(format: "Осталось времени %02d:%02d сек.", secondsLeft / 60, secondsLeft % 60)
                 } else {
-                    self.timerLabel.text = "Время вышло"
+                    self.timerLabel.text = "Время вышло. Попробуй еще раз"
                     self.pointLabel.text = nil
                     self.isGameFinished = true
-                    self.timerCancellable?.cancel()
-                    self.timerCancellable = nil
+                    self.timerSubscription?.cancel()
+                    self.timerSubscription = nil
                 }
-            }
+            })
     }
-    
+
+    // Обновляем UILabel для отображения прошедшего времени
     private func updateTimerLabel() {
-        guard let startTime = startTime else { return }
-        let elapsedTime = Int(Date().timeIntervalSince(startTime))
-        timerLabel.text = "Прошло \(elapsedTime) сек."
+        let secondsLeft = 60 - currentElapsedTime
+        timerLabel.text = secondsLeft > 0 ? "Прошло \(currentElapsedTime) сек." : nil
     }
-    
+
     // Обработка результата
     private func showResult(isTimeUp: Bool) {
-        var message = ""
-        var title = ""
-        
-        if isTimeUp {
-            title = "Время вышло"
-            message = "Ты не успел угадать число"
+        timerLabel.text = nil
+        pointLabel.text = nil
+        numberTextField.text = nil
+        let title = isTimeUp ? "Время вышло" : "Поздравляю! 🎉"
+        let message = isTimeUp ? "Попробуй еще раз" : "Ты угадал число \(randomNumber) за \(Int(Date().timeIntervalSince(startTime!))) сек."
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.resetGame()
         }
-        
-        if let startTime = startTime, !isTimeUp {
-            pointLabel.text = nil
-            timerLabel.text = nil
-            numberTextField.text = ""
-            let timeInterval = Int(Date().timeIntervalSince(startTime))
-            let seconds = timeInterval % 60
-            title = "Поздравляю! 🎉"
-            message = "Ты угадал число \(randomNumber) за \(seconds) сек."
-        }
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak self] _ in
-            self?.startNewGame()
-        }
-        alertController.addAction(okAction)
-        present(alertController, animated: true)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -211,5 +224,3 @@ extension RandomNumWithTimerCombine: UITextFieldDelegate {
         return newLength <= 3
     }
 }
-
-
