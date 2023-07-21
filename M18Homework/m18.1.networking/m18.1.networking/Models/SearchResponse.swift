@@ -27,20 +27,3 @@ struct Tracks: Decodable {
     let contentAdvisoryRating: String?
     let shortDescription, longDescription: String?
 }
-
-//IMDB
-//// MARK: - SearchResponse
-//struct SearchResponse: Decodable {
-//    var searchType, expression: String
-//    var results: [Films]
-//    var errorMessage: String
-//}
-//
-//// MARK: - Result
-//struct Films: Decodable {
-//    var id: String
-//    var resultType: String
-//    var image: String?
-//    var title: String
-//    var description: String
-//}

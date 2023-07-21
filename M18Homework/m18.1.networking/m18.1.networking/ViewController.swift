@@ -118,7 +118,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: -- UISearchBarDelegate
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //let urlString = "https://imdb-api.com/API/Search/k_gx3jblop/\(searchText)"
         let urlString = "https://itunes.apple.com/search?term=\(searchText)"
 
         //Timer
